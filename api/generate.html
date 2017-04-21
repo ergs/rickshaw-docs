@@ -73,11 +73,35 @@
             
   <div class="section" id="module-rickshaw.generate">
 <span id="generate-functions-rickshaw-generate"></span><span id="rickshaw-generate"></span><h1>Generate Functions (<code class="docutils literal"><span class="pre">rickshaw.Generate</span></code>)<a class="headerlink" href="#module-rickshaw.generate" title="Permalink to this headline">¶</a></h1>
-<p>Generates a random Cyclus input file.</p>
+<p>Generates a random Cyclus input file. Contains functions to stochastically 
+generate a niche path through the nuclear fuel cycle as well as the appropriate
+archetypes, recipes, commodities, and a control scheme for the nuclear fuel cycle
+those niches represent. Archetypes state variables with a &#8220;range&#8221; uitype are 
+stochastically generated within a physically valid range.</p>
 <dl class="function">
 <dt id="rickshaw.generate.archetype_block">
 <code class="descclassname">rickshaw.generate.</code><code class="descname">archetype_block</code><span class="sig-paren">(</span><em>arches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#archetype_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.archetype_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Formats the archetypes into the input file format</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arches</strong> : list</p>
+<blockquote>
+<div><p>List of assigned archetype.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>block</strong> : dictionary</p>
+<blockquote class="last">
+<div><p>Dictionary containing each necessary element of the archetype
+block in a Cyclus input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.generate.choose_archetypes">

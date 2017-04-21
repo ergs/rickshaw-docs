@@ -64,7 +64,12 @@
           <div class="body" role="main">
             
   <h1>Source code for rickshaw.generate</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Generates a random Cyclus input file.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Generates a random Cyclus input file. Contains functions to stochastically </span>
+<span class="sd">generate a niche path through the nuclear fuel cycle as well as the appropriate</span>
+<span class="sd">archetypes, recipes, commodities, and a control scheme for the nuclear fuel cycle</span>
+<span class="sd">those niches represent. Archetypes state variables with a &quot;range&quot; uitype are </span>
+<span class="sd">stochastically generated within a physically valid range.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">random</span>
@@ -424,6 +429,19 @@
     <span class="k">return</span> <span class="n">arches</span></div>
 
 <div class="viewcode-block" id="archetype_block"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.archetype_block">[docs]</a><span class="k">def</span> <span class="nf">archetype_block</span><span class="p">(</span><span class="n">arches</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Formats the archetypes into the input file format</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arches : list</span>
+<span class="sd">        List of assigned archetype.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    block : dictionary</span>
+<span class="sd">        Dictionary containing each necessary element of the archetype</span>
+<span class="sd">        block in a Cyclus input file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">unique_arches</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arches</span><span class="p">))</span>
     <span class="k">if</span> <span class="s1">&#39;:agents:Sink&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_arches</span><span class="p">:</span>
         <span class="n">unique_arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:agents:Sink&#39;</span><span class="p">)</span>
