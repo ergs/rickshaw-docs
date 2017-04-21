@@ -74,11 +74,34 @@
   <div class="section" id="module-rickshaw.special_archs">
 <span id="speacial-archetypes-rickshaw-special-archs"></span><span id="rickshaw-special-archs"></span><h1>Speacial Archetypes (<code class="docutils literal"><span class="pre">rickshaw.special_archs</span></code>)<a class="headerlink" href="#module-rickshaw.special_archs" title="Permalink to this headline">¶</a></h1>
 <p>Special archetypes provided as necessary to the Rickshaw input file. 
-Used for fuel cycle niches that have more than just one incommodity and outcommodity</p>
+Used for fuel cycle niches that have more than just one incommodity and outcommodity.</p>
 <dl class="function">
 <dt id="rickshaw.special_archs.enrich_tails">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">enrich_tails</code><span class="sig-paren">(</span><em>name</em>, <em>vals</em>, <em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#enrich_tails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.enrich_tails" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generates a sink for the tails commodity stream.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commod</strong> : String</p>
+<blockquote>
+<div><p>The commod name will be tailcommd in this case.</p>
+</div></blockquote>
+<p><strong>name</strong> : String</p>
+<blockquote>
+<div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sink</strong> : Dictionary</p>
+<blockquote class="last">
+<div><p>Dictionary formatted to represent the archetype in the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.ff_fill">
@@ -93,12 +116,59 @@ Used for fuel cycle niches that have more than just one incommodity and outcommo
 <dl class="function">
 <dt id="rickshaw.special_archs.generate_throwsink">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_throwsink</code><span class="sig-paren">(</span><em>commod</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_throwsink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_throwsink" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generic sink for outcommodities that do not become the
+incommodity of the following archetype.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commod</strong> : String</p>
+<blockquote>
+<div><p>Name of the commidity that the throwsink is receiving.</p>
+</div></blockquote>
+<p><strong>name</strong> : String</p>
+<blockquote>
+<div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>config</strong> : Dictionary</p>
+<blockquote class="last">
+<div><p>Dictionary formatted to represent the archetype in the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.generate_throwsource">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_throwsource</code><span class="sig-paren">(</span><em>commod</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_throwsource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_throwsource" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generic source for commidities.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commod</strong> : String</p>
+<blockquote>
+<div><p>Name of the commidity that the throwsource is generating.</p>
+</div></blockquote>
+<p><strong>name</strong> : String</p>
+<blockquote>
+<div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>config</strong> : Dictionary</p>
+<blockquote class="last">
+<div><p>Dictionary formatted to represent the archetype in the input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.sep_leftover">

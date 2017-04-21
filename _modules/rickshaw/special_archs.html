@@ -65,11 +65,26 @@
             
   <h1>Source code for rickshaw.special_archs</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Special archetypes provided as necessary to the Rickshaw input file. </span>
-<span class="sd">Used for fuel cycle niches that have more than just one incommodity and outcommodity</span>
+<span class="sd">Used for fuel cycle niches that have more than just one incommodity and outcommodity.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">random</span> 
 
 <div class="viewcode-block" id="generate_throwsink"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_throwsink">[docs]</a><span class="k">def</span> <span class="nf">generate_throwsink</span><span class="p">(</span><span class="n">commod</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic sink for outcommodities that do not become the</span>
+<span class="sd">    incommodity of the following archetype.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    commod : String</span>
+<span class="sd">        Name of the commidity that the throwsink is receiving.</span>
+<span class="sd">    name : String</span>
+<span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    config : Dictionary</span>
+<span class="sd">        Dictionary formatted to represent the archetype in the input file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e299</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;in_commods&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">commod</span><span class="p">]}</span> 
@@ -77,6 +92,20 @@
     <span class="k">return</span> <span class="n">config</span></div>
 
 <div class="viewcode-block" id="generate_throwsource"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_throwsource">[docs]</a><span class="k">def</span> <span class="nf">generate_throwsource</span><span class="p">(</span><span class="n">commod</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic source for commidities.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    commod : String</span>
+<span class="sd">        Name of the commidity that the throwsource is generating.</span>
+<span class="sd">    name : String</span>
+<span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    config : Dictionary</span>
+<span class="sd">        Dictionary formatted to represent the archetype in the input file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e200</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;commod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commod</span>
@@ -85,6 +114,20 @@
     <span class="k">return</span> <span class="n">config</span></div>
 
 <div class="viewcode-block" id="enrich_tails"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.enrich_tails">[docs]</a><span class="k">def</span> <span class="nf">enrich_tails</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">commod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generates a sink for the tails commodity stream. </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    commod : String</span>
+<span class="sd">        The commod name will be tailcommd in this case.</span>
+<span class="sd">    name : String</span>
+<span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sink : Dictionary</span>
+<span class="sd">        Dictionary formatted to represent the archetype in the input file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;tailcommod&#39;</span>
     <span class="n">sink</span> <span class="o">=</span> <span class="n">generate_throwsink</span><span class="p">(</span><span class="s1">&#39;tailcommod&#39;</span><span class="p">,</span> <span class="s1">&#39;enrichsink&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">sink</span></div>
