@@ -17,6 +17,7 @@
 ./_sources/api/scheduler.rst.txt
 ./_sources/api/server.rst.txt
 ./_sources/api/special_archs.rst.txt
+./_sources/gettingstarted.rst.txt
 ./_sources/index.rst.txt
 ./_static/ajax-loader.gif
 ./_static/basic.css
@@ -63,6 +64,7 @@
 ./api/server.html
 ./api/special_archs.html
 ./genindex.html
+./gettingstarted.html
 ./index.html
 ./objects.inv
 ./py-modindex.html
