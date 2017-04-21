@@ -143,19 +143,28 @@ At this time, only the <code class="docutils literal"><span class="pre">recipe</
 <h2>Running Rickshaw<a class="headerlink" href="#running-rickshaw" title="Permalink to this headline">¶</a></h2>
 <p>After following the steps above, you can run Rickshaw via the <code class="docutils literal"><span class="pre">rickshaw</span></code> command from the command line.
 With no flags or options set, Rickshaw will produce one output file with no constraining specification.</p>
-<p>To specify the number of input files to generate, use <code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-n</span> <span class="pre">[number</span> <span class="pre">of</span> <span class="pre">runs]</span></code>.
+<ul>
+<li><p class="first">To specify the number of input files to generate, use <code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-n</span> <span class="pre">[number</span> <span class="pre">of</span> <span class="pre">runs]</span></code>.
 Each file will be saved in the format <code class="docutils literal"><span class="pre">x.json</span></code> where <code class="docutils literal"><span class="pre">x</span></code> is in the range [0, n-1].</p>
-<p>To load a specification file, use <code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-i</span> <span class="pre">[file_name]</span></code></p>
-<p>To run Rickshaw in verbose mode, use <code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-v</span></code>.
+</li>
+<li><p class="first">To load a specification file, use <code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-i</span> <span class="pre">[file_name]</span></code></p>
+</li>
+<li><p class="first">To run Rickshaw in verbose mode, use <code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-v</span></code>.
 This will pretty print every generated input file.</p>
-<p>To run Rickshaw in generate-and-run mode, you can use either:</p>
+</li>
+<li><p class="first">To run Rickshaw in generate-and-run mode, you can use either:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-rh</span></code> (for HDF5 output)</li>
 <li><code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-rs</span></code> (for SQLite output)</li>
 <li><strong>or both</strong></li>
 </ul>
 <p>All generated input files will immediately be run by Cyclus to the output file format(s) specified.</p>
-<p><em>Cool note!</em> The above options can be mixed to achieve your desired behavior, a la:</p>
+</li>
+</ul>
+</div>
+<div class="section" id="cool-note">
+<h2>Cool note!<a class="headerlink" href="#cool-note" title="Permalink to this headline">¶</a></h2>
+<p>The above options can be mixed to achieve your desired behavior, a la:</p>
 <p><code class="docutils literal"><span class="pre">rickshaw</span> <span class="pre">-n</span> <span class="pre">10</span> <span class="pre">-i</span> <span class="pre">test.py</span> <span class="pre">-v</span> <span class="pre">-rh</span> <span class="pre">-rs</span></code></p>
 </div>
 </div>
@@ -177,6 +186,7 @@ This will pretty print every generated input file.</p>
 <li><a class="reference internal" href="#installing-rickshaw">2. Installing Rickshaw</a></li>
 <li><a class="reference internal" href="#writing-a-specification-file-optional">3. Writing a Specification File (optional)</a></li>
 <li><a class="reference internal" href="#running-rickshaw">Running Rickshaw</a></li>
+<li><a class="reference internal" href="#cool-note">Cool note!</a></li>
 </ul>
 </li>
 </ul>
