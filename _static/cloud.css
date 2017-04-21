@@ -200,7 +200,7 @@ body
 
     
         margin: 1em 1em 0;
-        background: #FFFFE7;
+        background: #b0aeaf;
         background-attachment: fixed;
     
 }
@@ -233,7 +233,7 @@ div.related
 {
     margin: 0 auto;
     max-width: 1250px;
-    background: #000000;
+    background: #8f4b32;
     line-height: 1.5em;
     padding: .75em 0;
     color: #ffffff;
@@ -345,7 +345,7 @@ div.document
     position: relative;
     margin: 0 auto;
     max-width: 1250px;
-    background: #e7e7ff;
+    background: #d5935e;
 
     
 }
@@ -2191,15 +2191,15 @@ table.indextable td > dl > dd > dl
 
         div.bodywrapper
         {
-                margin: 0 0 0 322px;
+                margin: 0 0 0 300px;
             
         }
     
 
-        div.sphinxsidebar { width: 322px; }
+        div.sphinxsidebar { width: 300px; }
     
 
-            .sidebar-toggle-group { width: 322px; }
+            .sidebar-toggle-group { width: 300px; }
         
 
 }
