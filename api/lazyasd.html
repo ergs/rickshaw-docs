@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Lazy and Self-destructive Tools (rickshaw.lazyasd) &#8212; rickshaw 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
+    <link rel="shortcut icon" href="../_static/rickshaw_128px.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Database Tools (rickshaw.dbtools)" href="dbtools.html" />
+     
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://xon.sh/api/lazyasd.html"/>
+
+  </head>
+  <body role="document">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dbtools.html" title="Database Tools (rickshaw.dbtools)"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-rickshaw.lazyasd">
+<span id="lazy-and-self-destructive-tools-rickshaw-lazyasd"></span><span id="rickshaw-lazyasd"></span><h1>Lazy and Self-destructive Tools (<code class="docutils literal"><span class="pre">rickshaw.lazyasd</span></code>)<a class="headerlink" href="#module-rickshaw.lazyasd" title="Permalink to this headline">¶</a></h1>
+<p>Lazy and self destructive containers for speeding up module import.</p>
+<dl class="class">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader">
+<em class="property">class </em><code class="descclassname">rickshaw.lazyasd.</code><code class="descname">BackgroundModuleLoader</code><span class="sig-paren">(</span><em>name</em>, <em>package</em>, <em>replacements</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#BackgroundModuleLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thread to load modules in the background.</p>
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.getName">
+<code class="descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.getName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.isAlive">
+<code class="descname">isAlive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.isAlive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the thread is alive.</p>
+<p>This method returns True just before the run() method starts until just
+after the run() method terminates. The module function enumerate()
+returns a list of all alive threads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.isDaemon">
+<code class="descname">isDaemon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.isDaemon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.is_alive">
+<code class="descname">is_alive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the thread is alive.</p>
+<p>This method returns True just before the run() method starts until just
+after the run() method terminates. The module function enumerate()
+returns a list of all alive threads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.join">
+<code class="descname">join</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the thread terminates.</p>
+<p>This blocks the calling thread until the thread whose join() method is
+called terminates &#8211; either normally or through an unhandled exception
+or until the optional timeout occurs.</p>
+<p>When the timeout argument is present and not None, it should be a
+floating point number specifying a timeout for the operation in seconds
+(or fractions thereof). As join() always returns None, you must call
+isAlive() after join() to decide whether a timeout happened &#8211; if the
+thread is still alive, the join() call timed out.</p>
+<p>When the timeout argument is not present or None, the operation will
+block until the thread terminates.</p>
+<p>A thread can be join()ed many times.</p>
+<p>join() raises a RuntimeError if an attempt is made to join the current
+thread as that would cause a deadlock. It is also an error to join() a
+thread before it has been started and attempts to do so raises the same
+exception.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#BackgroundModuleLoader.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.setDaemon">
+<code class="descname">setDaemon</code><span class="sig-paren">(</span><em>daemonic</em><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.setDaemon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.setName">
+<code class="descname">setName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.setName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the thread&#8217;s activity.</p>
+<p>It must be called at most once per thread object. It arranges for the
+object&#8217;s run() method to be invoked in a separate thread of control.</p>
+<p>This method will raise a RuntimeError if called more than once on the
+same thread object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.daemon">
+<code class="descname">daemon</code><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.daemon" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean value indicating whether this thread is a daemon thread.</p>
+<p>This must be set before start() is called, otherwise RuntimeError is
+raised. Its initial value is inherited from the creating thread; the
+main thread is not a daemon thread and therefore all threads created in
+the main thread default to daemon = False.</p>
+<p>The entire Python program exits when no alive non-daemon threads are
+left.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.ident">
+<code class="descname">ident</code><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.ident" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thread identifier of this thread or None if it has not been started.</p>
+<p>This is a nonzero integer. See the thread.get_ident() function. Thread
+identifiers may be recycled when a thread exits and another thread is
+created. The identifier is available even after the thread has exited.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.lazyasd.BackgroundModuleLoader.name">
+<code class="descname">name</code><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string used for identification purposes only.</p>
+<p>It has no semantics. Multiple threads may be given the same name. The
+initial name is set by the constructor.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rickshaw.lazyasd.BackgroundModuleProxy">
+<em class="property">class </em><code class="descclassname">rickshaw.lazyasd.</code><code class="descname">BackgroundModuleProxy</code><span class="sig-paren">(</span><em>modname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#BackgroundModuleProxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy object for modules loaded in the background that block attribute
+access until the module is loaded..</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rickshaw.lazyasd.LazyBool">
+<em class="property">class </em><code class="descclassname">rickshaw.lazyasd.</code><code class="descname">LazyBool</code><span class="sig-paren">(</span><em>load</em>, <em>ctx</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#LazyBool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.LazyBool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean like object that lazily computes it boolean value when it is
+first asked. Once loaded, this result will replace itself
+in the provided context (typically the globals of the call site) with
+the given name.</p>
+<p>For example, you can prevent the complex boolean until it is actually
+used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ALIVE</span> <span class="o">=</span> <span class="n">LazyDict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="ow">not</span> <span class="n">DEAD</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;ALIVE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>load</strong> : function with no arguments</p>
+<blockquote>
+<div><p>A loader function that performs the actual boolean evaluation.</p>
+</div></blockquote>
+<p><strong>ctx</strong> : Mapping</p>
+<blockquote>
+<div><p>Context to replace the LazyBool instance in
+with the the fully loaded mapping.</p>
+</div></blockquote>
+<p><strong>name</strong> : str</p>
+<blockquote class="last">
+<div><p>Name in the context to give the loaded mapping. This <em>should</em>
+be the name on the LHS of the assignment.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="rickshaw.lazyasd.LazyDict">
+<em class="property">class </em><code class="descclassname">rickshaw.lazyasd.</code><code class="descname">LazyDict</code><span class="sig-paren">(</span><em>loaders</em>, <em>ctx</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#LazyDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.LazyDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary like object that lazily loads its values from an initial
+dict of key-loader function pairs.  Each key is loaded when its value
+is first accessed. Once fully loaded, this object will replace itself
+in the provided context (typically the globals of the call site) with
+the given name.</p>
+<p>For example, you can prevent the compilation of a bunch of regular
+expressions until they are actually used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RES</span> <span class="o">=</span> <span class="n">LazyDict</span><span class="p">({</span>
+        <span class="s1">&#39;dot&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;all&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.*&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">),</span>
+        <span class="p">},</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;RES&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>loaders</strong> : Mapping of keys to functions with no arguments</p>
+<blockquote>
+<div><p>A mapping of loader function that performs the actual value
+construction upon acces.</p>
+</div></blockquote>
+<p><strong>ctx</strong> : Mapping</p>
+<blockquote>
+<div><p>Context to replace the LazyDict instance in
+with the the fully loaded mapping.</p>
+</div></blockquote>
+<p><strong>name</strong> : str</p>
+<blockquote class="last">
+<div><p>Name in the context to give the loaded mapping. This <em>should</em>
+be the name on the LHS of the assignment.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None.  Remove all items from D.<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D[k] if k in D, else d.  d defaults to None.<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's items<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.keys">
+<code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's keys<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.pop">
+<code class="descname">pop</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; v, remove specified key and return the corresponding value.<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>If key is not found, d is returned if given, otherwise KeyError is raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.popitem">
+<code class="descname">popitem</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; (k, v), remove and return some (key, value) pair<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.popitem" title="Permalink to this definition">¶</a></dt>
+<dd><p>as a 2-tuple; but raise KeyError if D is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.setdefault">
+<code class="descname">setdefault</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D.get(k,d), also set D[k]=d if k not in D<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.setdefault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="optional">[</span><em>E</em>, <span class="optional">]</span><em>**F</em><span class="sig-paren">)</span> &#x2192; None.  Update D from mapping/iterable E and F.<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>If E present and has a .keys() method, does:     for k in E: D[k] = E[k]
+If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v
+In either case, this is followed by: for k, v in F.items(): D[k] = v</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.lazyasd.LazyDict.values">
+<code class="descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; an object providing a view on D's values<a class="headerlink" href="#rickshaw.lazyasd.LazyDict.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rickshaw.lazyasd.LazyObject">
+<em class="property">class </em><code class="descclassname">rickshaw.lazyasd.</code><code class="descname">LazyObject</code><span class="sig-paren">(</span><em>load</em>, <em>ctx</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#LazyObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.LazyObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lazily loads an object via the load function the first time an
+attribute is accessed. Once loaded it will replace itself in the
+provided context (typically the globals of the call site) with the
+given name.</p>
+<p>For example, you can prevent the compilation of a regular expreession
+until it is actually used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DOT</span> <span class="o">=</span> <span class="n">LazyObject</span><span class="p">((</span><span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)),</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;DOT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>load</strong> : function with no arguments</p>
+<blockquote>
+<div><p>A loader function that performs the actual object construction.</p>
+</div></blockquote>
+<p><strong>ctx</strong> : Mapping</p>
+<blockquote>
+<div><p>Context to replace the LazyObject instance in
+with the object returned by load().</p>
+</div></blockquote>
+<p><strong>name</strong> : str</p>
+<blockquote class="last">
+<div><p>Name in the context to give the loaded object. This <em>should</em>
+be the name on the LHS of the assignment.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.lazyasd.lazybool">
+<code class="descclassname">rickshaw.lazyasd.</code><code class="descname">lazybool</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#lazybool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.lazybool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for constructing lazy booleans from a function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.lazyasd.lazydict">
+<code class="descclassname">rickshaw.lazyasd.</code><code class="descname">lazydict</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#lazydict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.lazydict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for constructing lazy dicts from a function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.lazyasd.lazyobject">
+<code class="descclassname">rickshaw.lazyasd.</code><code class="descname">lazyobject</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#lazyobject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.lazyobject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for constructing lazy objects from a function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.lazyasd.load_module_in_background">
+<code class="descclassname">rickshaw.lazyasd.</code><code class="descname">load_module_in_background</code><span class="sig-paren">(</span><em>name</em>, <em>package=None</em>, <em>debug='DEBUG'</em>, <em>env=None</em>, <em>replacements=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#load_module_in_background"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.load_module_in_background" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point for loading modules in background thread.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Module name to load in background thread.</p>
+</div></blockquote>
+<p><strong>package</strong> : str or None, optional</p>
+<blockquote>
+<div><p>Package name, has the same meaning as in importlib.import_module().</p>
+</div></blockquote>
+<p><strong>debug</strong> : str, optional</p>
+<blockquote>
+<div><p>Debugging symbol name to look up in the environment.</p>
+</div></blockquote>
+<p><strong>env</strong> : Mapping or None, optional</p>
+<blockquote>
+<div><p>Environment this will default to __xonsh_env__, if available, and
+os.environ otherwise.</p>
+</div></blockquote>
+<p><strong>replacements</strong> : Mapping or None, optional</p>
+<blockquote>
+<div><p>Dictionary mapping fully qualified module names (eg foo.bar.baz) that
+import the lazily loaded moudle, with the variable name in that
+module. For example, suppose that foo.bar imports module a as b,
+this dict is then {&#8216;foo.bar&#8217;: &#8216;b&#8217;}.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>module</strong> : ModuleType</p>
+<blockquote class="last">
+<div><p>This is either the original module that is found in sys.modules or
+a proxy module that will block until delay attribute access until the
+module is fully loaded.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html" title="index">
+          <img class="logo" src="../_static/rickshaw.svg" alt="Logo"/>
+        </a></p>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="dbtools.html"
+                          title="Previous page">&larr; Database Tools (<code class="docutils literal"><span class="pre">rickshaw.dbtools</span></code>)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/lazyasd.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dbtools.html" title="Database Tools (rickshaw.dbtools)"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

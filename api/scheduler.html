@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Scheduler Base Class (rickshaw.scheduler) &#8212; rickshaw 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
+    <link rel="shortcut icon" href="../_static/rickshaw_128px.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Docker Scheduler (rickshaw.docker_scheduler)" href="docker_scheduler.html" />
+    <link rel="prev" title="Speacial Archetypes (rickshaw.special_archs)" href="special_archs.html" />
+     
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://xon.sh/api/scheduler.html"/>
+
+  </head>
+  <body role="document">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="docker_scheduler.html" title="Docker Scheduler (rickshaw.docker_scheduler)"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="special_archs.html" title="Speacial Archetypes (rickshaw.special_archs)"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-rickshaw.scheduler">
+<span id="scheduler-base-class-rickshaw-scheduler"></span><span id="rickshaw-scheduler"></span><h1>Scheduler Base Class (<code class="docutils literal"><span class="pre">rickshaw.scheduler</span></code>)<a class="headerlink" href="#module-rickshaw.scheduler" title="Permalink to this headline">¶</a></h1>
+<p>Scheduler abstract class that represents how to query for currently running jobs,
+ask request more jobs to be run, and ask for a Cyclus server as needed.</p>
+<dl class="class">
+<dt id="rickshaw.scheduler.Scheduler">
+<em class="property">class </em><code class="descclassname">rickshaw.scheduler.</code><code class="descname">Scheduler</code><a class="reference internal" href="../_modules/rickshaw/scheduler.html#Scheduler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>A metaclass for all schedulers.</p>
+<dl class="method">
+<dt id="rickshaw.scheduler.Scheduler.queue">
+<code class="descname">queue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/scheduler.html#Scheduler.queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.scheduler.Scheduler.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the current queue status and retuns the jobs that are scheduled
+and status of each job.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.scheduler.Scheduler.schedule">
+<code class="descname">schedule</code><span class="sig-paren">(</span><em>sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/scheduler.html#Scheduler.schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.scheduler.Scheduler.schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules a simulation to be executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.scheduler.Scheduler.start_cyclus_server">
+<code class="descname">start_cyclus_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/scheduler.html#Scheduler.start_cyclus_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.scheduler.Scheduler.start_cyclus_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts up a cyclus server at a remote location.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.scheduler.Scheduler.stop_cyclus_server">
+<code class="descname">stop_cyclus_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/scheduler.html#Scheduler.stop_cyclus_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.scheduler.Scheduler.stop_cyclus_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops up a cyclus server at a remote location.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rickshaw.scheduler.Scheduler.want_n_more_jobs">
+<code class="descname">want_n_more_jobs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/scheduler.html#Scheduler.want_n_more_jobs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.scheduler.Scheduler.want_n_more_jobs" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many more jobs should be scheduled.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.scheduler.Scheduler.cyclus_server_host">
+<code class="descname">cyclus_server_host</code><em class="property"> = None</em><a class="headerlink" href="#rickshaw.scheduler.Scheduler.cyclus_server_host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.scheduler.Scheduler.cyclus_server_ready">
+<code class="descname">cyclus_server_ready</code><em class="property"> = False</em><a class="headerlink" href="#rickshaw.scheduler.Scheduler.cyclus_server_ready" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.scheduler.Scheduler.gathered_annotations">
+<code class="descname">gathered_annotations</code><em class="property"> = False</em><a class="headerlink" href="#rickshaw.scheduler.Scheduler.gathered_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rickshaw.scheduler.Scheduler.ncpu">
+<code class="descname">ncpu</code><em class="property"> = None</em><a class="headerlink" href="#rickshaw.scheduler.Scheduler.ncpu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html" title="index">
+          <img class="logo" src="../_static/rickshaw.svg" alt="Logo"/>
+        </a></p>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="special_archs.html"
+                          title="Previous page">&larr; Speacial Archetypes (<code class="docutils literal"><span class="pre">rickshaw.special_archs</span></code>)</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="docker_scheduler.html"
+                          title="Next page">&rarr; Docker Scheduler (<code class="docutils literal"><span class="pre">rickshaw.docker_scheduler</span></code>)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/scheduler.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="docker_scheduler.html" title="Docker Scheduler (rickshaw.docker_scheduler)"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="special_archs.html" title="Speacial Archetypes (rickshaw.special_archs)"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

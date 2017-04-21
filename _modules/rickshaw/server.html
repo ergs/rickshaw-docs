@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>rickshaw.server &#8212; rickshaw 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/numpy_friendly.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../_static/cloud.base.js"></script>
+    <script type="text/javascript" src="../../_static/cloud.js"></script>
+    <link rel="shortcut icon" href="../../_static/rickshaw_128px.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+     
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://xon.sh/_modules/rickshaw/server.html"/>
+
+  </head>
+  <body role="document">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for rickshaw.server</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;The asynchronous rickshaw server that communicates with scheduling queues and</span>
+<span class="sd">provides randomly generated input files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">concurrent.futures</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="k">import</span> <span class="n">ArgumentParser</span>
+
+<span class="kn">import</span> <span class="nn">docker</span>
+<span class="kn">import</span> <span class="nn">websockets</span>
+
+<span class="kn">from</span> <span class="nn">rickshaw.docker_scheduler</span> <span class="k">import</span> <span class="n">DockerScheduler</span>
+<span class="kn">from</span> <span class="nn">rickshaw.server_scheduler</span> <span class="k">import</span> <span class="n">ServerScheduler</span>
+<span class="kn">import</span> <span class="nn">rickshaw.generate</span> <span class="k">as</span> <span class="nn">generate</span>
+
+
+<span class="n">SEND_QUEUE</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+
+<div class="viewcode-block" id="all_archetypes"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.all_archetypes">[docs]</a><span class="k">def</span> <span class="nf">all_archetypes</span><span class="p">():</span>
+    <span class="n">arches</span> <span class="o">=</span> <span class="n">generate</span><span class="o">.</span><span class="n">DEFAULT_SOURCES</span> <span class="o">|</span> <span class="n">generate</span><span class="o">.</span><span class="n">DEFAULT_SINKS</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">generate</span><span class="o">.</span><span class="n">NICHE_ARCHETYPES</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">arches</span> <span class="o">|=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">arches</span></div>
+
+
+<div class="viewcode-block" id="gather_annotations"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.gather_annotations">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">gather_annotations</span><span class="p">(</span><span class="n">scheduler</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The basic consumer of actions.&quot;&quot;&quot;</span>
+    <span class="n">all_arches</span> <span class="o">=</span> <span class="n">all_archetypes</span><span class="p">()</span>
+    <span class="n">curr_arches</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">generate</span><span class="o">.</span><span class="n">ANNOTATIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">staged_tasks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">curr_arches</span> <span class="o">&lt;</span> <span class="n">all_arches</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">SEND_QUEUE</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">frequency</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+            <span class="n">curr_arches</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">generate</span><span class="o">.</span><span class="n">ANNOTATIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">arche</span> <span class="ow">in</span> <span class="n">all_arches</span> <span class="o">-</span> <span class="n">curr_arches</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;event&#39;</span><span class="p">:</span> <span class="s1">&#39;agent_annotations&#39;</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;spec&#39;</span><span class="p">:</span> <span class="n">arche</span><span class="p">}}</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">action_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">SEND_QUEUE</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+            <span class="n">staged_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action_task</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">staged_tasks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">staged_tasks</span><span class="p">)</span>
+            <span class="n">staged_tasks</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span>
+        <span class="n">curr_arches</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">generate</span><span class="o">.</span><span class="n">ANNOTATIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">await</span> <span class="n">SEND_QUEUE</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;{&quot;event&quot;: &quot;shutdown&quot;, &quot;params&quot;: {&quot;when&quot;: &quot;now&quot;}}&#39;</span><span class="p">)</span>
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">gathered_annotations</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="get_send_data"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.get_send_data">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">get_send_data</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Asynchronously grabs the next data to send from the queue.&quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">SEND_QUEUE</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="queue_message_action"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.queue_message_action">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">queue_message_action</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;params&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;agent_annotations&#39;</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;spec&#39;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;received agent annotations for &#39;</span> <span class="o">+</span> <span class="n">spec</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">generate</span><span class="o">.</span><span class="n">ANNOTATIONS</span><span class="p">[</span><span class="n">spec</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ignoring received &quot;</span> <span class="o">+</span> <span class="n">kind</span> <span class="o">+</span> <span class="s2">&quot; event&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="websocket_handler"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.websocket_handler">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">websocket_handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sends and recieves data via a websocket.&quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">gathered_annotations</span><span class="p">:</span>
+        <span class="n">recv_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">())</span>
+        <span class="n">send_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">get_send_data</span><span class="p">())</span>
+        <span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">([</span><span class="n">recv_task</span><span class="p">,</span> <span class="n">send_task</span><span class="p">],</span>
+                                           <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">)</span>
+        <span class="c1"># handle incoming</span>
+        <span class="k">if</span> <span class="n">recv_task</span> <span class="ow">in</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">recv_task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">await</span> <span class="n">queue_message_action</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">recv_task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+        <span class="c1"># handle sending of data</span>
+        <span class="k">if</span> <span class="n">send_task</span> <span class="ow">in</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">send_task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">send_task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="websocket_client"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.websocket_client">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">websocket_client</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Runs a websocket client on a host/port.&quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">cyclus_server_ready</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">cyclus_server_host</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;ws://</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">connected</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">with</span> <span class="n">websockets</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
+                <span class="n">connected</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;connected to cyclus server websocket&quot;</span><span class="p">)</span>
+                <span class="k">await</span> <span class="n">websocket_handler</span><span class="p">(</span><span class="n">websocket</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="k">raise</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;failed to connect to websocket, retrying </span><span class="si">{0}</span><span class="s2">/10&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">stop_cyclus_server</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="start_cyclus_server"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.start_cyclus_server">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">start_cyclus_server</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">executor</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Starts up remote cyclus server&quot;&quot;&quot;</span>
+    <span class="n">run_task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="n">executor</span><span class="p">,</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">start_cyclus_server</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">([</span><span class="n">run_task</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="schedule_sims"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.schedule_sims">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">schedule_sims</span><span class="p">(</span><span class="n">scheduler</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Loads jobs into the hopper, as needed.&quot;&quot;&quot;</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">frequency</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">gathered_annotations</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">want_n_more_jobs</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">sim</span> <span class="o">=</span> <span class="n">generate</span><span class="p">()</span>
+            <span class="n">scheduler</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_start_debug</span><span class="p">(</span><span class="n">loop</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">logging</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;websockets.server&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">set_debug</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_find_open_port</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="mi">98</span><span class="p">:</span>
+                <span class="n">port</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">port</span>
+
+
+<div class="viewcode-block" id="make_parser"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.make_parser">[docs]</a><span class="k">def</span> <span class="nf">make_parser</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Makes the argument parser for the rickshaw server.&quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="s2">&quot;rickshaw-server&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Rickshaw Server CLI&quot;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;runs the server in debug mode.&quot;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--host&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;host&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;hostname to run the server on&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--port&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">4242</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;port to run the server on&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--nthreads&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;nthreads&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Maximum number of thread workers to run with.&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--swarm&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;swarm&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Run the server in swarm mode.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api/server.html#rickshaw.server.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">make_parser</span><span class="p">()</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="c1"># start up tasks</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">ns</span><span class="o">.</span><span class="n">nthreads</span><span class="p">)</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">swarm</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;started in swarm mode&#39;</span><span class="p">)</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">ServerScheduler</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="n">ns</span><span class="o">.</span><span class="n">debug</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;started in docker mode&#39;</span><span class="p">)</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">DockerScheduler</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="n">ns</span><span class="o">.</span><span class="n">debug</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+        <span class="n">_start_debug</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;serving rickshaw at http://</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">ns</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
+    <span class="c1"># run the loop!</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">websocket_client</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">)),</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">gather_annotations</span><span class="p">(</span><span class="n">scheduler</span><span class="p">)),</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">start_cyclus_server</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">executor</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">)),</span>
+            <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">schedule_sims</span><span class="p">(</span><span class="n">scheduler</span><span class="p">)),</span>
+            <span class="p">))</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">loop</span><span class="o">.</span><span class="n">is_closed</span><span class="p">():</span>
+            <span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../../index.html" title="index">
+          <img class="logo" src="../../_static/rickshaw.svg" alt="Logo"/>
+        </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

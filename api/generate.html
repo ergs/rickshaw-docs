@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Generate Functions (rickshaw.Generate) &#8212; rickshaw 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
+    <link rel="shortcut icon" href="../_static/rickshaw_128px.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speacial Archetypes (rickshaw.special_archs)" href="special_archs.html" />
+    <link rel="prev" title="Rickshaw API" href="index.html" />
+     
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://xon.sh/api/generate.html"/>
+
+  </head>
+  <body role="document">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="special_archs.html" title="Speacial Archetypes (rickshaw.special_archs)"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Rickshaw API"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-rickshaw.generate">
+<span id="generate-functions-rickshaw-generate"></span><span id="rickshaw-generate"></span><h1>Generate Functions (<code class="docutils literal"><span class="pre">rickshaw.Generate</span></code>)<a class="headerlink" href="#module-rickshaw.generate" title="Permalink to this headline">¶</a></h1>
+<p>Generates a random Cyclus input file.</p>
+<dl class="function">
+<dt id="rickshaw.generate.archetype_block">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">archetype_block</code><span class="sig-paren">(</span><em>arches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#archetype_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.archetype_block" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.choose_archetypes">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_archetypes</code><span class="sig-paren">(</span><em>niches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_archetypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_archetypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the correct archetype from cyclus or cycamore based on the niche</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niches</strong> : list</p>
+<blockquote>
+<div><p>List of sequential niches returned from choose_niches.py</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>arches</strong> : list</p>
+<blockquote class="last">
+<div><p>List of assigned archetypes. Same list length as niches.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.choose_commodities">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_commodities</code><span class="sig-paren">(</span><em>niches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_commodities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_commodities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates list of commodities individually chosen by the choose_commodity function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niches</strong> : list</p>
+<blockquote>
+<div><p>List of sequential niches returned from choose_niches.py</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>commods</strong> : list</p>
+<blockquote class="last">
+<div><p>List of in and out commodities to be added to the archetypes in the
+input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.choose_commodity">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_commodity</code><span class="sig-paren">(</span><em>keyfrom</em>, <em>keyto</em>, <em>unique_commods</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_commodity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_commodity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine commodity based on a from/to pairs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>keyfrom</strong> : str</p>
+<blockquote>
+<div><p>Origin niche name.</p>
+</div></blockquote>
+<p><strong>keyto</strong> : str</p>
+<blockquote>
+<div><p>Following niche name.</p>
+</div></blockquote>
+<p><strong>unique_commods</strong> : set</p>
+<blockquote>
+<div><p>Current names used by chosen commodities.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>commod_name</strong> : str</p>
+<blockquote class="last">
+<div><p>A unique commodity name.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.choose_control">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_control</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>This program will choose the control scheme at random for a cyclus
+input file in JSON</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>control</strong> : dict</p>
+<blockquote class="last">
+<div><p>Dictionary generated to be the control scheme in the JSON cyclus
+input file</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.choose_recipes">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_recipes</code><span class="sig-paren">(</span><em>commods</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_recipes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_recipes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chooses the specific recipe for each commodity in the commods list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commods</strong> : list</p>
+<blockquote>
+<div><p>List of in and out commodities to be added to the archetypes in the
+input file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>recipes</strong> : list</p>
+<blockquote class="last">
+<div><p>List of the assigned recipes to be added to the recipe section of
+the generated input file[]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.generate">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">generate</code><span class="sig-paren">(</span><em>max_num_niches=10</em>, <em>simspec=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a random Cyclus simulation input file dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>max_num_niches</strong> : int, optional</p>
+<blockquote>
+<div><p>The maximum number of niches in the simulation</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>inp</strong> : dict</p>
+<blockquote class="last">
+<div><p>A simulation dictionary in JSON form, suitable for use
+as a Cyclus input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.generate_archetype">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">generate_archetype</code><span class="sig-paren">(</span><em>arche</em>, <em>in_commod</em>, <em>out_commod</em>, <em>in_recipe</em>, <em>out_recipe</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate_archetype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate_archetype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pulls in the metadata for each archetype</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arche</strong> : str</p>
+<blockquote>
+<div><p>The name of the archetype that is being generated.</p>
+</div></blockquote>
+<p><strong>in_commod</strong> : str</p>
+<blockquote>
+<div><p>The incommodity received by the specific archetype as
+determined by choose_commodities.py</p>
+</div></blockquote>
+<p><strong>out_commod</strong> : str</p>
+<blockquote>
+<div><p>The outcommodity produced by the specific archetype as
+determined by choose_commodities.py</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>config</strong> : dict</p>
+<blockquote class="last">
+<div><p>The JSON formatted archetype dictionary to be put in the input file</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.generate_nuclide">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">generate_nuclide</code><span class="sig-paren">(</span><em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate_nuclide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate_nuclide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.generate_region_inst">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">generate_region_inst</code><span class="sig-paren">(</span><em>sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate_region_inst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate_region_inst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a null region and inst for the randomized runs.
+This operated in-place.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.random_niches">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">random_niches</code><span class="sig-paren">(</span><em>max_niches</em>, <em>choice='mine'</em>, <em>niches=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#random_niches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.random_niches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a randomized list of niches of the nuclear fuel cycle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>max_niches</strong> : int</p>
+<blockquote>
+<div><p>The maximum number of niches desired by the user, the total number
+of generated niches does not have to reach this number.</p>
+</div></blockquote>
+<p><strong>choice</strong> : str</p>
+<blockquote>
+<div><p>If desired the starting point of the list of niches can be set.
+Preset to the natural starting point of &#8220;mine&#8221;</p>
+</div></blockquote>
+<p><strong>niches</strong> : None</p>
+<blockquote>
+<div><p>This will be set to be a list at the beginning of the function and
+will contain the chosen niches.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>niches</strong> : list</p>
+<blockquote class="last">
+<div><p>List of connected niches that model the steps of the full nuclear
+fuel cycle.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.generate.up_hierarchy">
+<code class="descclassname">rickshaw.generate.</code><code class="descname">up_hierarchy</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#up_hierarchy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.up_hierarchy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html" title="index">
+          <img class="logo" src="../_static/rickshaw.svg" alt="Logo"/>
+        </a></p>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="index.html"
+                          title="Previous page">&larr; Rickshaw API</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="special_archs.html"
+                          title="Next page">&rarr; Speacial Archetypes (<code class="docutils literal"><span class="pre">rickshaw.special_archs</span></code>)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/generate.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="special_archs.html" title="Speacial Archetypes (rickshaw.special_archs)"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="index.html" title="Rickshaw API"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

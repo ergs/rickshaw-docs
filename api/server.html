@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Server Command Line Entry Point (rickshaw.server) &#8212; rickshaw 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/cloud.base.js"></script>
+    <script type="text/javascript" src="../_static/cloud.js"></script>
+    <link rel="shortcut icon" href="../_static/rickshaw_128px.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Database Tools (rickshaw.dbtools)" href="dbtools.html" />
+    <link rel="prev" title="Command Line Entry Point (rickshaw.main)" href="main.html" />
+     
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="http://xon.sh/api/server.html"/>
+
+  </head>
+  <body role="document">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dbtools.html" title="Database Tools (rickshaw.dbtools)"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="main.html" title="Command Line Entry Point (rickshaw.main)"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-rickshaw.server">
+<span id="server-command-line-entry-point-rickshaw-server"></span><span id="rickshaw-server"></span><h1>Server Command Line Entry Point (<code class="docutils literal"><span class="pre">rickshaw.server</span></code>)<a class="headerlink" href="#module-rickshaw.server" title="Permalink to this headline">¶</a></h1>
+<p>The asynchronous rickshaw server that communicates with scheduling queues and
+provides randomly generated input files.</p>
+<dl class="function">
+<dt id="rickshaw.server.all_archetypes">
+<code class="descclassname">rickshaw.server.</code><code class="descname">all_archetypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#all_archetypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.all_archetypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.gather_annotations">
+<code class="descclassname">rickshaw.server.</code><code class="descname">gather_annotations</code><span class="sig-paren">(</span><em>scheduler</em>, <em>frequency=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#gather_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.gather_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>The basic consumer of actions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.get_send_data">
+<code class="descclassname">rickshaw.server.</code><code class="descname">get_send_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#get_send_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.get_send_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronously grabs the next data to send from the queue.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.main">
+<code class="descclassname">rickshaw.server.</code><code class="descname">main</code><span class="sig-paren">(</span><em>args=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.make_parser">
+<code class="descclassname">rickshaw.server.</code><code class="descname">make_parser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#make_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.make_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the argument parser for the rickshaw server.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.queue_message_action">
+<code class="descclassname">rickshaw.server.</code><code class="descname">queue_message_action</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#queue_message_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.queue_message_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.schedule_sims">
+<code class="descclassname">rickshaw.server.</code><code class="descname">schedule_sims</code><span class="sig-paren">(</span><em>scheduler</em>, <em>frequency=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#schedule_sims"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.schedule_sims" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads jobs into the hopper, as needed.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.start_cyclus_server">
+<code class="descclassname">rickshaw.server.</code><code class="descname">start_cyclus_server</code><span class="sig-paren">(</span><em>loop</em>, <em>executor</em>, <em>scheduler</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#start_cyclus_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.start_cyclus_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts up remote cyclus server</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.websocket_client">
+<code class="descclassname">rickshaw.server.</code><code class="descname">websocket_client</code><span class="sig-paren">(</span><em>port</em>, <em>scheduler</em>, <em>frequency=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#websocket_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.websocket_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a websocket client on a host/port.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.server.websocket_handler">
+<code class="descclassname">rickshaw.server.</code><code class="descname">websocket_handler</code><span class="sig-paren">(</span><em>websocket</em>, <em>scheduler</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/server.html#websocket_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.server.websocket_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends and recieves data via a websocket.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="../index.html" title="index">
+          <img class="logo" src="../_static/rickshaw.svg" alt="Logo"/>
+        </a></p>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="main.html"
+                          title="Previous page">&larr; Command Line Entry Point (<code class="docutils literal"><span class="pre">rickshaw.main</span></code>)</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="dbtools.html"
+                          title="Next page">&rarr; Database Tools (<code class="docutils literal"><span class="pre">rickshaw.dbtools</span></code>)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/server.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dbtools.html" title="Database Tools (rickshaw.dbtools)"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="main.html" title="Command Line Entry Point (rickshaw.main)"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../index.html">rickshaw 0.0.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Rickshaw API</a> &#187;</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
