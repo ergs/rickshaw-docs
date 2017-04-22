@@ -78,6 +78,11 @@ generate a niche path through the nuclear fuel cycle as well as the appropriate
 archetypes, recipes, commodities, and a control scheme for the nuclear fuel cycle
 those niches represent. Archetypes state variables with a &#8220;range&#8221; uitype are 
 stochastically generated within a physically valid range.</p>
+<dl class="class">
+<dt id="rickshaw.generate.SimSpec">
+<em class="property">class </em><code class="descclassname">rickshaw.generate.</code><code class="descname">SimSpec</code><span class="sig-paren">(</span><em>spec={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#SimSpec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.SimSpec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt id="rickshaw.generate.archetype_block">
 <code class="descclassname">rickshaw.generate.</code><code class="descname">archetype_block</code><span class="sig-paren">(</span><em>arches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#archetype_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.archetype_block" title="Permalink to this definition">¶</a></dt>
@@ -105,13 +110,17 @@ block in a Cyclus input file.</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.choose_archetypes">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_archetypes</code><span class="sig-paren">(</span><em>niches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_archetypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_archetypes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_archetypes</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>niches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_archetypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_archetypes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the correct archetype from cyclus or cycamore based on the niche</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niches</strong> : list</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim_spec</strong> : SimSpec</p>
+<blockquote>
+<div><p>Specification for simulation generation</p>
+</div></blockquote>
+<p><strong>niches</strong> : list</p>
 <blockquote>
 <div><p>List of sequential niches returned from choose_niches.py</p>
 </div></blockquote>
@@ -129,13 +138,17 @@ block in a Cyclus input file.</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.choose_commodities">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_commodities</code><span class="sig-paren">(</span><em>niches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_commodities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_commodities" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_commodities</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>niches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_commodities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_commodities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates list of commodities individually chosen by the choose_commodity function</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>niches</strong> : list</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim_spec</strong> : SimSpec</p>
+<blockquote>
+<div><p>Specification for simulation generation</p>
+</div></blockquote>
+<p><strong>niches</strong> : list</p>
 <blockquote>
 <div><p>List of sequential niches returned from choose_niches.py</p>
 </div></blockquote>
@@ -154,13 +167,17 @@ input file.</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.choose_commodity">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_commodity</code><span class="sig-paren">(</span><em>keyfrom</em>, <em>keyto</em>, <em>unique_commods</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_commodity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_commodity" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_commodity</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>keyfrom</em>, <em>keyto</em>, <em>unique_commods</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_commodity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_commodity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine commodity based on a from/to pairs.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>keyfrom</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim_spec</strong> : SimSpec</p>
+<blockquote>
+<div><p>Specification for simulation generation</p>
+</div></blockquote>
+<p><strong>keyfrom</strong> : str</p>
 <blockquote>
 <div><p>Origin niche name.</p>
 </div></blockquote>
@@ -206,16 +223,23 @@ input file</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.choose_recipes">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_recipes</code><span class="sig-paren">(</span><em>commods</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_recipes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_recipes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">choose_recipes</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>commods</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#choose_recipes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.choose_recipes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Chooses the specific recipe for each commodity in the commods list</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commods</strong> : list</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim_spec</strong> : SimSpec</p>
 <blockquote>
-<div><p>List of in and out commodities to be added to the archetypes in the
+<div><blockquote>
+<div><p>Specification for simulation generation</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>commods <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd><p class="first last">List of in and out commodities to be added to the archetypes in the
 input file.</p>
+</dd>
+</dl>
 </div></blockquote>
 </td>
 </tr>
@@ -232,7 +256,7 @@ the generated input file[]</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.generate">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">generate</code><span class="sig-paren">(</span><em>max_num_niches=10</em>, <em>simspec=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">generate</code><span class="sig-paren">(</span><em>max_num_niches=10</em>, <em>sim_spec=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a random Cyclus simulation input file dict.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -257,25 +281,30 @@ as a Cyclus input file.</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.generate_archetype">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">generate_archetype</code><span class="sig-paren">(</span><em>arche</em>, <em>in_commod</em>, <em>out_commod</em>, <em>in_recipe</em>, <em>out_recipe</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate_archetype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate_archetype" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">generate_archetype</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>arche</em>, <em>in_commod</em>, <em>out_commod</em>, <em>in_recipe</em>, <em>out_recipe</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#generate_archetype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.generate_archetype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pulls in the metadata for each archetype</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arche</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim_spec</strong> : SimSpec</p>
 <blockquote>
-<div><p>The name of the archetype that is being generated.</p>
+<div><blockquote>
+<div><p>Specification for simulation generation</p>
 </div></blockquote>
-<p><strong>in_commod</strong> : str</p>
-<blockquote>
-<div><p>The incommodity received by the specific archetype as
+<dl class="docutils">
+<dt>arche <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The name of the archetype that is being generated.</p>
+</dd>
+<dt>in_commod <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The incommodity received by the specific archetype as
 determined by choose_commodities.py</p>
-</div></blockquote>
-<p><strong>out_commod</strong> : str</p>
-<blockquote>
-<div><p>The outcommodity produced by the specific archetype as
+</dd>
+<dt>out_commod <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The outcommodity produced by the specific archetype as
 determined by choose_commodities.py</p>
+</dd>
+</dl>
 </div></blockquote>
 </td>
 </tr>
@@ -303,26 +332,31 @@ This operated in-place.</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.random_niches">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">random_niches</code><span class="sig-paren">(</span><em>max_niches</em>, <em>choice='mine'</em>, <em>niches=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#random_niches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.random_niches" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">random_niches</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>max_niches</em>, <em>choice='mine'</em>, <em>niches=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#random_niches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.random_niches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a randomized list of niches of the nuclear fuel cycle.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>max_niches</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim_spec</strong> : SimSpec</p>
 <blockquote>
-<div><p>The maximum number of niches desired by the user, the total number
+<div><blockquote>
+<div><p>Specification for simulation generation</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>max_niches <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">The maximum number of niches desired by the user, the total number
 of generated niches does not have to reach this number.</p>
-</div></blockquote>
-<p><strong>choice</strong> : str</p>
-<blockquote>
-<div><p>If desired the starting point of the list of niches can be set.
+</dd>
+<dt>choice <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">If desired the starting point of the list of niches can be set.
 Preset to the natural starting point of &#8220;mine&#8221;</p>
-</div></blockquote>
-<p><strong>niches</strong> : None</p>
-<blockquote>
-<div><p>This will be set to be a list at the beginning of the function and
+</dd>
+<dt>niches <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd><p class="first last">This will be set to be a list at the beginning of the function and
 will contain the chosen niches.</p>
+</dd>
+</dl>
 </div></blockquote>
 </td>
 </tr>
@@ -339,7 +373,7 @@ fuel cycle.</p>
 
 <dl class="function">
 <dt id="rickshaw.generate.up_hierarchy">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">up_hierarchy</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#up_hierarchy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.up_hierarchy" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">up_hierarchy</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#up_hierarchy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.up_hierarchy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

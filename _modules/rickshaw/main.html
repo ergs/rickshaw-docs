@@ -70,6 +70,7 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="k">import</span> <span class="n">ArgumentParser</span>
 
@@ -81,23 +82,37 @@
     <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;number of files to generate&#39;</span><span class="p">,</span>
                    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;name of input file&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-rs&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;rs&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;runs the simulations after they have been generated&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-rh&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;rh&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;runs the simulations after they have been generated&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;verbose mode will pretty print generated files&#39;</span><span class="p">)</span>
     <span class="n">ns</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
-    
+    <span class="n">simspec</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">i</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.json&#39;</span><span class="p">:</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">i</span><span class="p">)</span> <span class="k">as</span> <span class="n">jf</span><span class="p">:</span>
                     <span class="n">simspec</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">jf</span><span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="n">simspec</span><span class="p">)</span>  
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">simspec</span><span class="p">[</span><span class="s1">&#39;niche_links&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="n">simspec</span><span class="p">[</span><span class="s1">&#39;niche_links&#39;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">simspec</span><span class="p">[</span><span class="s1">&#39;archetypes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="n">simspec</span><span class="p">[</span><span class="s1">&#39;archetypes&#39;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.py&#39;</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">i</span><span class="p">)</span> <span class="k">as</span> <span class="n">pf</span><span class="p">:</span>
+                    <span class="n">py_str</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                    <span class="n">simspec</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">py_str</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">pass</span> 
-    
+            <span class="k">pass</span>
+            
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">generate</span><span class="o">.</span><span class="n">SimSpec</span><span class="p">(</span><span class="n">simspec</span><span class="p">)</span>
+            
     <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">n</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ns</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">input_file</span> <span class="o">=</span> <span class="n">generate</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+                <span class="n">input_file</span> <span class="o">=</span> <span class="n">generate</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">sim_spec</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">v</span><span class="p">:</span>
+                    <span class="n">pprint</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">jsonfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
@@ -105,8 +120,20 @@
                 <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">jf</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">input_file</span> <span class="o">=</span> <span class="n">generate</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span></div>
+        <span class="n">input_file</span> <span class="o">=</span> <span class="n">generate</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">sim_spec</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">v</span><span class="p">:</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+        <span class="n">jsonfile</span> <span class="o">=</span> <span class="s1">&#39;rickshaw&#39;</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">jsonfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jf</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">jf</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>        
+    <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">rs</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls *.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>            
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;cyclus&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s1">&#39;-o rickshaw.sqlite&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">rh</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;ls *.json&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>            
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;cyclus&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">),</span> <span class="s1">&#39;-o rickshaw.h5&#39;</span><span class="p">])</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
