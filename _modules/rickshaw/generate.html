@@ -87,6 +87,48 @@
 <span class="kn">from</span> <span class="nn">rickshaw.lazyasd</span> <span class="k">import</span> <span class="n">lazyobject</span>
 
 <div class="viewcode-block" id="SimSpec"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.SimSpec">[docs]</a><span class="k">class</span> <span class="nc">SimSpec</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages any constraints placed on Rickshaw generation.</span>
+<span class="sd">    </span>
+<span class="sd">    Adjusts parameters based on information provided in a specification file.</span>
+<span class="sd">    Any attributes not found in the spec dictionary are set to a default </span>
+<span class="sd">    defined in the constructor. This class is used even if no specification </span>
+<span class="sd">    file is present, in which case all attributes are set to their default</span>
+<span class="sd">    value.</span>
+<span class="sd">       </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    spec : dict</span>
+<span class="sd">        Dictionary representation of a specification input file.</span>
+<span class="sd">            </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    spec : dict</span>
+<span class="sd">        Dictionary representation of a specification input file.</span>
+<span class="sd">    customized : bool</span>
+<span class="sd">        Denotes whether niche_links has been customized by the user. Prevents </span>
+<span class="sd">        Rickshaw from using default Cycamore sources and sinks.</span>
+<span class="sd">    niche_links : dict</span>
+<span class="sd">        Represents allowed links between niches. Can be specified by user in a </span>
+<span class="sd">        top level key in the specification file.</span>
+<span class="sd">    commodities : dict</span>
+<span class="sd">        Represents allowed commodities. Can be specified by user.</span>
+<span class="sd">    recipes : dict</span>
+<span class="sd">        Contains all recipes allowed in the simulation. Can be specified by user</span>
+<span class="sd">        in the simulation key of the specification file.</span>
+<span class="sd">    archetypes : dict</span>
+<span class="sd">        Represents allowed the allowed archetypes for each niche. Can be </span>
+<span class="sd">        specified by the user in a top level key in the simulation file.</span>
+<span class="sd">    special_calls : dict</span>
+<span class="sd">        Returns callable function associated with a Cycamore archetype and </span>
+<span class="sd">        function identifier  </span>
+<span class="sd">    default_sources : set</span>
+<span class="sd">        Contains defaults for simulation sources. Not yet customizable by user.</span>
+<span class="sd">    default_sinks : set</span>
+<span class="sd">        Contains defaults for simulation sinks. Not yet customizable by user.</span>
+<span class="sd">    annotations : dict</span>
+<span class="sd">        Container for archetype annotations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="p">{}):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">customized</span> <span class="o">=</span> <span class="kc">False</span>     
