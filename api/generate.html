@@ -78,71 +78,9 @@ generate a niche path through the nuclear fuel cycle as well as the appropriate
 archetypes, recipes, commodities, and a control scheme for the nuclear fuel cycle
 those niches represent. Archetypes state variables with a &#8220;range&#8221; uitype are 
 stochastically generated within a physically valid range.</p>
-<dl class="class">
-<dt id="rickshaw.generate.SimSpec">
-<em class="property">class </em><code class="descclassname">rickshaw.generate.</code><code class="descname">SimSpec</code><span class="sig-paren">(</span><em>spec={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#SimSpec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.SimSpec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Manages any constraints placed on Rickshaw generation.</p>
-<p>Adjusts parameters based on information provided in a specification file.
-Any attributes not found in the spec dictionary are set to a default 
-defined in the constructor. This class is used even if no specification 
-file is present, in which case all attributes are set to their default
-value.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>spec</strong> : dict</p>
-<blockquote class="last">
-<div><p>Dictionary representation of a specification input file.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>spec</td>
-<td>(dict) Dictionary representation of a specification input file.</td>
-</tr>
-<tr class="row-even"><td>customized</td>
-<td>(bool) Denotes whether niche_links has been customized by the user. Prevents Rickshaw from using default Cycamore sources and sinks.</td>
-</tr>
-<tr class="row-odd"><td>niche_links</td>
-<td>(dict) Represents allowed links between niches. Can be specified by user in a top level key in the specification file.</td>
-</tr>
-<tr class="row-even"><td>commodities</td>
-<td>(dict) Represents allowed commodities. Can be specified by user.</td>
-</tr>
-<tr class="row-odd"><td>recipes</td>
-<td>(dict) Contains all recipes allowed in the simulation. Can be specified by user in the simulation key of the specification file.</td>
-</tr>
-<tr class="row-even"><td>archetypes</td>
-<td>(dict) Represents allowed the allowed archetypes for each niche. Can be specified by the user in a top level key in the simulation file.</td>
-</tr>
-<tr class="row-odd"><td>special_calls</td>
-<td>(dict) Returns callable function associated with a Cycamore archetype and function identifier</td>
-</tr>
-<tr class="row-even"><td>default_sources</td>
-<td>(set) Contains defaults for simulation sources. Not yet customizable by user.</td>
-</tr>
-<tr class="row-odd"><td>default_sinks</td>
-<td>(set) Contains defaults for simulation sinks. Not yet customizable by user.</td>
-</tr>
-<tr class="row-even"><td>annotations</td>
-<td>(dict) Container for archetype annotations.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="function">
 <dt id="rickshaw.generate.archetype_block">
-<code class="descclassname">rickshaw.generate.</code><code class="descname">archetype_block</code><span class="sig-paren">(</span><em>arches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#archetype_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.archetype_block" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rickshaw.generate.</code><code class="descname">archetype_block</code><span class="sig-paren">(</span><em>sim_spec</em>, <em>arches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/generate.html#archetype_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.generate.archetype_block" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats the archetypes into the input file format</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

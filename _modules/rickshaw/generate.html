@@ -78,177 +78,14 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="k">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randrange</span><span class="p">,</span> <span class="n">choice</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">pprintpp</span> <span class="k">import</span> <span class="n">pprint</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
-
+<span class="kn">from</span> <span class="nn">rickshaw</span> <span class="k">import</span> <span class="n">simspec</span>
 <span class="kn">from</span> <span class="nn">rickshaw</span> <span class="k">import</span> <span class="n">special_archs</span> <span class="k">as</span> <span class="n">sa</span>
 <span class="kn">from</span> <span class="nn">rickshaw.lazyasd</span> <span class="k">import</span> <span class="n">lazyobject</span>
-
-<div class="viewcode-block" id="SimSpec"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.SimSpec">[docs]</a><span class="k">class</span> <span class="nc">SimSpec</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Manages any constraints placed on Rickshaw generation.</span>
-<span class="sd">    </span>
-<span class="sd">    Adjusts parameters based on information provided in a specification file.</span>
-<span class="sd">    Any attributes not found in the spec dictionary are set to a default </span>
-<span class="sd">    defined in the constructor. This class is used even if no specification </span>
-<span class="sd">    file is present, in which case all attributes are set to their default</span>
-<span class="sd">    value.</span>
-<span class="sd">       </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    spec : dict</span>
-<span class="sd">        Dictionary representation of a specification input file.</span>
-<span class="sd">            </span>
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    spec : dict</span>
-<span class="sd">        Dictionary representation of a specification input file.</span>
-<span class="sd">    customized : bool</span>
-<span class="sd">        Denotes whether niche_links has been customized by the user. Prevents </span>
-<span class="sd">        Rickshaw from using default Cycamore sources and sinks.</span>
-<span class="sd">    niche_links : dict</span>
-<span class="sd">        Represents allowed links between niches. Can be specified by user in a </span>
-<span class="sd">        top level key in the specification file.</span>
-<span class="sd">    commodities : dict</span>
-<span class="sd">        Represents allowed commodities. Can be specified by user.</span>
-<span class="sd">    recipes : dict</span>
-<span class="sd">        Contains all recipes allowed in the simulation. Can be specified by user</span>
-<span class="sd">        in the simulation key of the specification file.</span>
-<span class="sd">    archetypes : dict</span>
-<span class="sd">        Represents allowed the allowed archetypes for each niche. Can be </span>
-<span class="sd">        specified by the user in a top level key in the simulation file.</span>
-<span class="sd">    special_calls : dict</span>
-<span class="sd">        Returns callable function associated with a Cycamore archetype and </span>
-<span class="sd">        function identifier  </span>
-<span class="sd">    default_sources : set</span>
-<span class="sd">        Contains defaults for simulation sources. Not yet customizable by user.</span>
-<span class="sd">    default_sinks : set</span>
-<span class="sd">        Contains defaults for simulation sinks. Not yet customizable by user.</span>
-<span class="sd">    annotations : dict</span>
-<span class="sd">        Container for archetype annotations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="o">=</span><span class="p">{}):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">customized</span> <span class="o">=</span> <span class="kc">False</span>     
-        <span class="bp">self</span><span class="o">.</span><span class="n">niche_links</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;mine&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;enrichment&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:hwr&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;enrichment&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fuel_fab:uo2&quot;</span><span class="p">,</span> <span class="s2">&quot;fuel_fab:triso&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:hwr&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;reactor:lwr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:htgr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:rbmk&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:pb&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab:uo2&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;reactor:lwr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:htgr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:rbmk&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab:triso&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;reactor:pb&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab:mox&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;reactor:fr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:lwr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:htgr&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:rbmk&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:fr&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:lwr&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:hwr&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span>  <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:htgr&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:rbmk&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:pb&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;storage&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;storage:wet&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;storage:dry&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;storage:interim&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;separations&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;fuel_fab&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;repository&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="kc">None</span><span class="p">},</span>
-            <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">commodities</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="p">(</span><span class="s2">&quot;mine&quot;</span><span class="p">,</span> <span class="s2">&quot;enrichment&quot;</span><span class="p">):</span> <span class="s2">&quot;natural_uranium&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;mine&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:hwr&quot;</span><span class="p">):</span> <span class="s2">&quot;natural_uranium_fuel&quot;</span><span class="p">,</span>  <span class="c1"># in case of hwr</span>
-            <span class="p">(</span><span class="s2">&quot;enrichment&quot;</span><span class="p">,</span> <span class="s2">&quot;fuel_fab&quot;</span><span class="p">):</span> <span class="s2">&quot;low_enriched_uranium&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;enrichment&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor&quot;</span><span class="p">):</span> <span class="s2">&quot;low_enriched_uranium&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;enrichment&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">):</span> <span class="s2">&quot;enrichment_waste_stream&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;fuel_fab&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor&quot;</span><span class="p">):</span> <span class="s2">&quot;fresh_fuel&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;fuel_fab:uo2&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:lwr&quot;</span><span class="p">):</span> <span class="s2">&quot;fresh_uox&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;fuel_fab:triso&quot;</span><span class="p">,</span> <span class="s2">&quot;reactor:pb&quot;</span><span class="p">):</span> <span class="s2">&quot;fresh_triso&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">):</span> <span class="s2">&quot;used_fuel&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">):</span> <span class="s2">&quot;used_fuel&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;reactor:lwr&quot;</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">):</span> <span class="s2">&quot;used_uox&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;reactor:pb&quot;</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">):</span> <span class="s2">&quot;used_triso&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">):</span> <span class="s2">&quot;used_fuel&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;reactor:lwr&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">):</span> <span class="s2">&quot;used_uox&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;separations&quot;</span><span class="p">):</span> <span class="s2">&quot;stored_used_fuel&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">):</span> <span class="s2">&quot;stored_used_fuel&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;fuel_fab&quot;</span><span class="p">):</span> <span class="s2">&quot;separated_product&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">):</span> <span class="s2">&quot;separated_waste&quot;</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;separations&quot;</span><span class="p">,</span> <span class="s2">&quot;repository&quot;</span><span class="p">):</span> <span class="s2">&quot;separated_waste&quot;</span>
-        <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;natural_uranium&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;nuclide&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;U235&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="mf">0.00711</span><span class="p">},</span>
-                                            <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;U238&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="mf">0.99289</span><span class="p">}]},</span>
-                        <span class="s1">&#39;low_enriched_uranium&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;nuclide&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;U235&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]},</span>
-                                             <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;U238&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}]},</span>
-                        <span class="s1">&#39;used_fuel&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;nuclide&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;U235&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00650</span><span class="p">,</span> <span class="mf">0.00720</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;U238&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Pu238&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.000235</span><span class="p">,</span> <span class="mf">0.000275</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Pu239&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00535</span><span class="p">,</span> <span class="mf">0.00595</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Pu240&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00249</span><span class="p">,</span> <span class="mf">0.00309</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Pu241&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00150</span><span class="p">,</span> <span class="mf">0.00180</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Pu242&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.000812</span><span class="p">,</span> <span class="mf">0.000832</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Am241&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0000545</span><span class="p">,</span> <span class="mf">0.0000565</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Am243&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.000166</span><span class="p">,</span> <span class="mf">0.000186</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Cm242&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0000223</span><span class="p">,</span> <span class="mf">0.0000243</span><span class="p">]},</span>
-                                      <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;Cm244&#39;</span><span class="p">,</span> <span class="s1">&#39;comp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0000696</span><span class="p">,</span> <span class="mf">0.0000716</span><span class="p">]}]}</span>
-                       <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;natural_uranium_fuel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;natural_uranium&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;fresh_uox&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;fresh_triso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;fresh_fuel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;low_enriched_uranium&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;stored_used_fuel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;used_uox&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;used_triso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="s1">&#39;used_fuel&#39;</span><span class="p">]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">default_sources</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;:agents:Source&#39;</span><span class="p">,</span> <span class="s1">&#39;:cycamore:Source&#39;</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">default_sinks</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;:agents:Sink&#39;</span><span class="p">,</span> <span class="s1">&#39;:cycamore:Sink&#39;</span><span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">archetypes</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;mine&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Source&quot;</span><span class="p">},</span> <span class="c1">#</span>
-            <span class="s2">&quot;conversion&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Storage&quot;</span><span class="p">},</span> <span class="c1">#</span>
-            <span class="s2">&quot;enrichment&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Enrichment&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:FuelFab&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab:uo2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:FuelFab&quot;</span><span class="p">},</span> <span class="c1">#not the correct archetype currently possibly</span>
-            <span class="s2">&quot;fuel_fab:triso&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:FuelFab&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;fuel_fab:mox&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:FuelFab&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:fr&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:lwr&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:hwr&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:htgr&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:rbmk&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;reactor:pb&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Storage&quot;</span><span class="p">},</span> <span class="c1">#</span>
-            <span class="s2">&quot;storage:wet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Storage&quot;</span><span class="p">},</span> <span class="c1">#</span>
-            <span class="s2">&quot;storage:dry&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Storage&quot;</span><span class="p">},</span> <span class="c1">#</span>
-            <span class="s2">&quot;storage:interim&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Storage&quot;</span><span class="p">},</span> <span class="c1">#</span>
-            <span class="s2">&quot;separations&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Separations&quot;</span><span class="p">},</span>
-            <span class="s2">&quot;repository&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;:cycamore:Sink&quot;</span><span class="p">}</span> <span class="c1">#</span>
-            <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">special_calls</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">&quot;:cycamore:Enrichment&quot;</span><span class="p">,</span> <span class="s2">&quot;tails_commod&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">enrich_tails</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Separations&quot;</span><span class="p">,</span> <span class="s2">&quot;streams&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">sep_streams</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Separations&quot;</span><span class="p">,</span> <span class="s2">&quot;leftover_commod&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">sep_leftover</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:FuelFab&quot;</span><span class="p">,</span> <span class="s2">&quot;fill_commods&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">ff_fill</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:FuelFab&quot;</span><span class="p">,</span> <span class="s2">&quot;fill_recipe&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">ff_fill_recipe</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;recipe_change_in&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">skip</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;recipe_change_out&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">skip</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;recipe_change_in&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">skip</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;pref_change_commods&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">skip</span><span class="p">,</span>
-            <span class="p">(</span><span class="s2">&quot;:cycamore:Reactor&quot;</span><span class="p">,</span> <span class="s2">&quot;recipe_change_commods&quot;</span><span class="p">):</span> <span class="n">sa</span><span class="o">.</span><span class="n">skip</span><span class="p">,</span>
-            <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span> <span class="o">=</span> <span class="p">{}</span>
-        
-        <span class="c1"># Check for specifications</span>
-        <span class="k">if</span> <span class="s1">&#39;niche_links&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">niche_links</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;niche_links&#39;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">customized</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="s1">&#39;archetypes&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">archetypes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;archetypes&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;commodities&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">commodities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;commodities&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s1">&#39;simulation&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">:</span>        
-            <span class="k">if</span> <span class="s1">&#39;recipe&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;simulation&#39;</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span> <span class="o">=</span> <span class="p">{}</span>
-                <span class="k">for</span> <span class="n">recipe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;simulation&#39;</span><span class="p">][</span><span class="s1">&#39;recipe&#39;</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">recipes</span><span class="p">[</span><span class="n">recipe</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">recipe</span></div>
 
 <span class="nd">@lazyobject</span>
 <span class="k">def</span> <span class="nf">CYCLUS_EXECUTABLE</span><span class="p">():</span>
@@ -508,7 +345,7 @@
         <span class="n">arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">arches</span></div>
 
-<div class="viewcode-block" id="archetype_block"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.archetype_block">[docs]</a><span class="k">def</span> <span class="nf">archetype_block</span><span class="p">(</span><span class="n">arches</span><span class="p">):</span>
+<div class="viewcode-block" id="archetype_block"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.archetype_block">[docs]</a><span class="k">def</span> <span class="nf">archetype_block</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arches</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Formats the archetypes into the input file format</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -522,6 +359,7 @@
 <span class="sd">        Dictionary containing each necessary element of the archetype</span>
 <span class="sd">        block in a Cyclus input file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arches</span> <span class="o">=</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">arches</span> <span class="o">+</span> <span class="n">arches</span>
     <span class="n">unique_arches</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arches</span><span class="p">))</span>
     <span class="k">if</span> <span class="s1">&#39;:agents:Sink&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_arches</span><span class="p">:</span>
         <span class="n">unique_arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:agents:Sink&#39;</span><span class="p">)</span>
@@ -685,9 +523,7 @@
     <span class="n">arches</span> <span class="o">=</span> <span class="n">choose_archetypes</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">niches</span><span class="p">)</span>
     <span class="n">commods</span> <span class="o">=</span> <span class="n">choose_commodities</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">niches</span><span class="p">)</span>
     <span class="n">recipes</span> <span class="o">=</span> <span class="n">choose_recipes</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">commods</span><span class="p">)</span>
-    <span class="c1">#if len(recipes) == 1:</span>
-    <span class="c1">#    recipes = recipes[0]</span>
-    <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;archetypes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">archetype_block</span><span class="p">(</span><span class="n">arches</span><span class="p">)</span>
+    <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;archetypes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">archetype_block</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arches</span><span class="p">)</span>
     <span class="c1">#put the other things in here</span>
     <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;recipe&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">recipes</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
     <span class="n">protos</span> <span class="o">=</span> <span class="p">{}</span>
@@ -695,6 +531,8 @@
     <span class="k">for</span> <span class="n">arche</span><span class="p">,</span> <span class="n">in_commod</span><span class="p">,</span> <span class="n">out_commod</span><span class="p">,</span> <span class="n">in_recipe</span><span class="p">,</span> <span class="n">out_recipe</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">arches</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
                                             <span class="n">commods</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">commods</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
                                             <span class="n">recipes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">recipes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="k">if</span> <span class="n">arche</span> <span class="ow">in</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">arches</span><span class="p">:</span>
+            <span class="k">continue</span>
         <span class="n">temp_arch</span> <span class="o">=</span> <span class="n">generate_archetype</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arche</span><span class="p">,</span> <span class="n">in_commod</span><span class="p">,</span> <span class="n">out_commod</span><span class="p">,</span> <span class="n">in_recipe</span><span class="p">,</span> <span class="n">out_recipe</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">arch</span> <span class="ow">in</span> <span class="n">temp_arch</span><span class="p">:</span>
             <span class="n">base_name</span> <span class="o">=</span> <span class="n">arch</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
@@ -703,9 +541,9 @@
                 <span class="n">arch</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base_name</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                 <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
             <span class="n">protos</span><span class="p">[</span><span class="n">arch</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">arch</span>
-
     <span class="n">protos</span><span class="p">[</span><span class="n">arches</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">generate_archetype</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arches</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">commods</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">protos</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">facilities</span>    
     <span class="n">generate_region_inst</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">inp</span></div>
 
