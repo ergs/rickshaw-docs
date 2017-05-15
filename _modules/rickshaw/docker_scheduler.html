@@ -80,7 +80,7 @@
     <span class="sd">&quot;&quot;&quot;A base docker scheduler&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">try_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
@@ -89,7 +89,7 @@
                    <span class="s1">&#39;Remember to give this container/service access to the &#39;</span><span class="o">+</span>
                    <span class="s1">&#39;docker socket on the host machine with the following argument:</span><span class="se">\n</span><span class="s1"> &#39;</span><span class="o">+</span>
                    <span class="s1">&#39;-v /var/run/docker.sock:/var/run/docker.sock</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
-                   <span class="s1">&#39;***************************************************&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>       
+                   <span class="s1">&#39;***************************************************&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cyclus_container</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">server_tag</span> <span class="o">=</span> <span class="s2">&quot;ergs/cyclus-server-dev&quot;</span>
         <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
@@ -103,7 +103,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_have_swarm</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_find_ncpu</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_find_ncpu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>        
+    <span class="k">def</span> <span class="nf">_find_ncpu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># get NCPUs for swarm</span>
             <span class="n">ncpu</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -163,6 +163,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Will want to fill out, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot; jobs&quot;</span><span class="p">)</span>
         <span class="n">pprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">swarm</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">n</span></div></div>
+
 </pre></div>
 
           </div>
@@ -224,7 +225,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>
