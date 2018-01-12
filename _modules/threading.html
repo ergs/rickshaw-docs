@@ -1,19 +1,16 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>threading &#8212; rickshaw 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -38,7 +35,7 @@
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/_modules/threading.html"/>
 
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -1248,8 +1245,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
 
+
 <span class="c1"># Special thread class to represent the main thread</span>
-<span class="c1"># This is garbage collected through an exit handler</span>
 
 <span class="k">class</span> <span class="nc">_MainThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
 
@@ -1359,7 +1356,6 @@
     <span class="k">while</span> <span class="n">t</span><span class="p">:</span>
         <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">_pickSomeNonDaemonThread</span><span class="p">()</span>
-    <span class="n">_main_thread</span><span class="o">.</span><span class="n">_delete</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">_pickSomeNonDaemonThread</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">():</span>
@@ -1483,7 +1479,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

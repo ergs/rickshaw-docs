@@ -1,19 +1,16 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Speacial Archetypes (rickshaw.special_archs) &#8212; rickshaw 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -40,7 +37,7 @@
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/api/special_archs.html"/>
 
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -83,13 +80,18 @@ Used for fuel cycle niches that have more than just one incommodity and outcommo
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commod</strong> : String</p>
-<blockquote>
-<div><p>The commod name will be tailcommd in this case.</p>
-</div></blockquote>
-<p><strong>name</strong> : String</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : String</p>
 <blockquote>
 <div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+<p><strong>vals</strong> : Dictionary</p>
+<blockquote>
+<div><p>Dictionary containing the specifications for the facilities
+in the simulation.</p>
+</div></blockquote>
+<p><strong>commod</strong> : String</p>
+<blockquote>
+<div><p>The commod name will be tailcommd in this case.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -106,12 +108,151 @@ Used for fuel cycle niches that have more than just one incommodity and outcommo
 <dl class="function">
 <dt id="rickshaw.special_archs.ff_fill">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">ff_fill</code><span class="sig-paren">(</span><em>name</em>, <em>vals</em>, <em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#ff_fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.ff_fill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>Generates a DU source facility for a fuel fabrication</dt>
+<dd>facility.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : String</p>
+<blockquote>
+<div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+<p><strong>vals</strong> : Dictionary</p>
+<blockquote>
+<div><p>Dictionary containing the specifications for the facilities
+in the simulation.</p>
+</div></blockquote>
+<p><strong>commod</strong> : String</p>
+<blockquote>
+<div><p>Name of the commodity for the source.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">source: Dictionary</p>
+<blockquote class="last">
+<div><p>Dictionary containing the specifications for a source
+facility.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.ff_fill_recipe">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">ff_fill_recipe</code><span class="sig-paren">(</span><em>name</em>, <em>vals</em>, <em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#ff_fill_recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.ff_fill_recipe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.special_archs.generate_deploy">
+<code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_deploy</code><span class="sig-paren">(</span><em>sim</em>, <em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the function used to build the deploy institution. 
+Parameters</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>sim <span class="classifier-delimiter">:</span> <span class="classifier">Dictionary</span></dt>
+<dd>Simulation specifications for the cyclus input file.</dd>
+<dt>parameters: Dictionary</dt>
+<dd>Parameters used to define the deploy institution.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.special_archs.generate_deploy_inst">
+<code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_deploy_inst</code><span class="sig-paren">(</span><em>sim</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_deploy_inst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_deploy_inst" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a deploy institution for randomized runs. 
+It will generate a number of deployment times, randomize
+the times and determine the what to deploy at those times.
+It operates in place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim</strong> : Dictionary</p>
+<blockquote class="last">
+<div><p>Simulation specifications for the cyclus input file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.special_archs.generate_deploy_lin">
+<code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_deploy_lin</code><span class="sig-paren">(</span><em>sim</em>, <em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_deploy_lin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_deploy_lin" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a deploy institution for randomized runs. 
+This deploy institutation is designed to test a given parameter
+space for the possibility of transition between facilities.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim</strong> : Dictionary</p>
+<blockquote>
+<div><p>Simulation specifications for the cyclus input file.</p>
+</div></blockquote>
+<p><strong>parameters: Dictionary</strong></p>
+<blockquote class="last">
+<div><p>Parameters used to define the deploy institution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.special_archs.generate_deploy_sch">
+<code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_deploy_sch</code><span class="sig-paren">(</span><em>sim</em>, <em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_deploy_sch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_deploy_sch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a deploy institution for randomized runs. 
+This deploy institutation is designed to test a given parameter
+space for the possibility of transition between facilities.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim</strong> : Dictionary</p>
+<blockquote>
+<div><p>Simulation specifications for the cyclus input file.</p>
+</div></blockquote>
+<p><strong>parameters: Dictionary</strong></p>
+<blockquote class="last">
+<div><p>Parameters used to define the deploy institution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.special_archs.generate_region_inst">
+<code class="descclassname">rickshaw.special_archs.</code><code class="descname">generate_region_inst</code><span class="sig-paren">(</span><em>sim</em>, <em>sim_spec</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#generate_region_inst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.generate_region_inst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a null region and inst for the randomized runs.
+This operated in-place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sim</strong> : Dictionary</p>
+<blockquote>
+<div><p>Simulation specifications for the cyclus input file.</p>
+</div></blockquote>
+<p><strong>sim_spec</strong> : SimSpec</p>
+<blockquote class="last">
+<div><p>The prebuild SimSpec for the simulation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.generate_throwsink">
@@ -173,16 +314,78 @@ incommodity of the following archetype.</p>
 <dl class="function">
 <dt id="rickshaw.special_archs.sep_leftover">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">sep_leftover</code><span class="sig-paren">(</span><em>name</em>, <em>vals</em>, <em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#sep_leftover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.sep_leftover" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>Generates a sink facility for the waste</dt>
+<dd>material after separation.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : String</p>
+<blockquote>
+<div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+<p><strong>vals</strong> : Dictionary</p>
+<blockquote>
+<div><p>Dictionary containing the specifications for the facilities
+in the simulation.</p>
+</div></blockquote>
+<p><strong>commod</strong> : String</p>
+<blockquote>
+<div><p>Name of the commodity to be sent to the sink.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">sink: Dictionary</p>
+<blockquote class="last">
+<div><p>Dictionary containing the specifications for a sink
+facility.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.sep_streams">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">sep_streams</code><span class="sig-paren">(</span><em>name</em>, <em>vals</em>, <em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#sep_streams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.sep_streams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>Generates random separation effiencies </dt>
+<dd>for the separations facility.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : String</p>
+<blockquote>
+<div><p>Name for the archetype in the input file.</p>
+</div></blockquote>
+<p><strong>vals</strong> : Dictionary</p>
+<blockquote>
+<div><p>Dictionary containing the specifications for the facilities
+in the simulation.</p>
+</div></blockquote>
+<p><strong>commod</strong> : String</p>
+<blockquote class="last">
+<div><p>Name of the commodity to be separated.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="rickshaw.special_archs.skip">
 <code class="descclassname">rickshaw.special_archs.</code><code class="descname">skip</code><span class="sig-paren">(</span><em>name</em>, <em>vals</em>, <em>commod</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#skip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.skip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="rickshaw.special_archs.trans_init_facs">
+<code class="descclassname">rickshaw.special_archs.</code><code class="descname">trans_init_facs</code><span class="sig-paren">(</span><em>sim</em>, <em>parameters</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/special_archs.html#trans_init_facs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.special_archs.trans_init_facs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -270,7 +473,7 @@ incommodity of the following archetype.</p>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

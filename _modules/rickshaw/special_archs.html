@@ -1,19 +1,16 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>rickshaw.special_archs &#8212; rickshaw 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -38,7 +35,7 @@
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/_modules/rickshaw/special_archs.html"/>
 
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -86,7 +83,7 @@
 <span class="sd">        Dictionary formatted to represent the archetype in the input file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e299</span>
+    <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e100</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;in_commods&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">commod</span><span class="p">]}</span> 
     <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;agents_sink&quot;</span><span class="p">:</span> <span class="n">vals</span><span class="p">}}</span>
     <span class="k">return</span> <span class="n">config</span></div>
@@ -107,7 +104,7 @@
 <span class="sd">        Dictionary formatted to represent the archetype in the input file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e200</span>
+    <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e100</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;commod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commod</span>
     <span class="n">vals</span><span class="p">[</span><span class="s2">&quot;recipe_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;natural_uranium&#39;</span> 
     <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;agents_source&quot;</span><span class="p">:</span> <span class="n">vals</span><span class="p">}}</span>
@@ -118,10 +115,13 @@
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    commod : String</span>
-<span class="sd">        The commod name will be tailcommd in this case.</span>
 <span class="sd">    name : String</span>
 <span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">    vals : Dictionary</span>
+<span class="sd">        Dictionary containing the specifications for the facilities</span>
+<span class="sd">        in the simulation. </span>
+<span class="sd">    commod : String</span>
+<span class="sd">        The commod name will be tailcommd in this case.</span>
 <span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -133,6 +133,19 @@
     <span class="k">return</span> <span class="n">sink</span></div>
 
 <div class="viewcode-block" id="sep_streams"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.sep_streams">[docs]</a><span class="k">def</span> <span class="nf">sep_streams</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">commod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generates random separation effiencies </span>
+<span class="sd">       for the separations facility.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : String</span>
+<span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">    vals : Dictionary</span>
+<span class="sd">        Dictionary containing the specifications for the facilities</span>
+<span class="sd">        in the simulation. </span>
+<span class="sd">    commod : String</span>
+<span class="sd">        Name of the commodity to be separated.</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
     <span class="n">sep_rand</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
     <span class="n">sep</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.0000001</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sep_rand</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span><span class="o">**</span><span class="n">sep_rand</span>
     <span class="n">nucs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;Pu&quot;</span><span class="p">]</span>
@@ -155,11 +168,49 @@
     <span class="k">return</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="sep_leftover"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.sep_leftover">[docs]</a><span class="k">def</span> <span class="nf">sep_leftover</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">commod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generates a sink facility for the waste</span>
+<span class="sd">       material after separation. </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : String</span>
+<span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">    vals : Dictionary</span>
+<span class="sd">        Dictionary containing the specifications for the facilities</span>
+<span class="sd">        in the simulation. </span>
+<span class="sd">    commod : String</span>
+<span class="sd">        Name of the commodity to be sent to the sink.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sink: Dictionary</span>
+<span class="sd">        Dictionary containing the specifications for a sink</span>
+<span class="sd">        facility. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;leftovercommod&#39;</span>
     <span class="n">sink</span> <span class="o">=</span> <span class="n">generate_throwsink</span><span class="p">(</span><span class="s1">&#39;leftovercommod&#39;</span><span class="p">,</span> <span class="s1">&#39;sepsink&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">sink</span>    </div>
 
 <div class="viewcode-block" id="ff_fill"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.ff_fill">[docs]</a><span class="k">def</span> <span class="nf">ff_fill</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">commod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generates a DU source facility for a fuel fabrication</span>
+<span class="sd">        facility.  </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : String</span>
+<span class="sd">        Name for the archetype in the input file.</span>
+<span class="sd">    vals : Dictionary</span>
+<span class="sd">        Dictionary containing the specifications for the facilities</span>
+<span class="sd">        in the simulation. </span>
+<span class="sd">    commod : String</span>
+<span class="sd">        Name of the commodity for the source.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    source: Dictionary</span>
+<span class="sd">        Dictionary containing the specifications for a source</span>
+<span class="sd">        facility. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vals</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="s1">&#39;fillcommod&#39;</span><span class="p">}</span>
     <span class="n">source</span> <span class="o">=</span> <span class="n">generate_throwsource</span><span class="p">(</span><span class="s1">&#39;fillcommod&#39;</span><span class="p">,</span> <span class="s1">&#39;ffsource&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">source</span></div>
@@ -170,6 +221,197 @@
 
 <div class="viewcode-block" id="skip"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.skip">[docs]</a><span class="k">def</span> <span class="nf">skip</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">commod</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="generate_region_inst"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_region_inst">[docs]</a><span class="k">def</span> <span class="nf">generate_region_inst</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">sim_spec</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates a null region and inst for the randomized runs.</span>
+<span class="sd">    This operated in-place.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sim : Dictionary</span>
+<span class="sd">        Simulation specifications for the cyclus input file. </span>
+<span class="sd">    sim_spec : SimSpec</span>
+<span class="sd">        The prebuild SimSpec for the simulation. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">region</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SingleRegion&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;NullRegion&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="s2">&quot;institution&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SingleInstitution&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;initialfacilitylist&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="p">[]},</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">][</span><span class="s2">&quot;institution&quot;</span><span class="p">][</span><span class="s2">&quot;initialfacilitylist&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">ni</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">][</span><span class="s1">&#39;institution&#39;</span><span class="p">][</span><span class="s1">&#39;config&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;DeployInst&quot;</span><span class="p">:</span> <span class="n">generate_deploy</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> 
+                                                                      <span class="n">sim_spec</span><span class="o">.</span><span class="n">parameters</span><span class="p">)}</span>
+        <span class="k">for</span> <span class="n">facility</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">facility</span> <span class="ow">in</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;facs&#39;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">entry</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;prototype&quot;</span><span class="p">:</span> <span class="n">facility</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+                <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>          
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">][</span><span class="s1">&#39;institution&#39;</span><span class="p">][</span><span class="s1">&#39;config&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;NullInst&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">facility</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]:</span>
+            <span class="n">entry</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;prototype&quot;</span><span class="p">:</span> <span class="n">facility</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="generate_deploy_inst"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_deploy_inst">[docs]</a><span class="k">def</span> <span class="nf">generate_deploy_inst</span><span class="p">(</span><span class="n">sim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This creates a deploy institution for randomized runs. </span>
+<span class="sd">    It will generate a number of deployment times, randomize</span>
+<span class="sd">    the times and determine the what to deploy at those times.</span>
+<span class="sd">    It operates in place. </span>
+
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sim : Dictionary</span>
+<span class="sd">        Simulation specifications for the cyclus input file. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">randtimes</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;control&#39;</span><span class="p">][</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">12</span>
+    <span class="n">months</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prototypes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:[]},</span> <span class="s1">&#39;build_times&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="p">[]},</span> <span class="s1">&#39;n_build&#39;</span><span class="p">:{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="p">[]},</span> <span class="s1">&#39;lifetimes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:[]}}</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">randtimes</span><span class="p">:</span>
+        <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;control&#39;</span><span class="p">][</span><span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="n">months</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">facility</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]:</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;prototypes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">facility</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;build_times&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_build&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;lifetimes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+    
+<div class="viewcode-block" id="trans_init_facs"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.trans_init_facs">[docs]</a><span class="k">def</span> <span class="nf">trans_init_facs</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="n">pstart</span><span class="p">,</span> <span class="n">facpower</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;pstart&#39;</span><span class="p">],</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;facpower&#39;</span><span class="p">]</span>
+    <span class="n">lin</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;lin&#39;</span><span class="p">]</span>
+    <span class="n">facs</span><span class="p">,</span> <span class="n">facstart</span><span class="p">,</span> <span class="n">facend</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;facs&#39;</span><span class="p">],</span> <span class="n">lin</span><span class="p">[</span><span class="s1">&#39;facstart&#39;</span><span class="p">],</span> <span class="n">lin</span><span class="p">[</span><span class="s1">&#39;facend&#39;</span><span class="p">]</span>
+    <span class="n">startfacs</span><span class="p">,</span> <span class="n">facnum</span><span class="p">,</span> <span class="n">power</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">{},</span>  <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">fac</span> <span class="ow">in</span> <span class="n">facs</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">facs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">fac</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">facstart</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">startfacs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">facnum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">while</span> <span class="n">power</span> <span class="o">&lt;</span> <span class="n">pstart</span><span class="p">:</span>
+        <span class="n">fac</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">startfacs</span><span class="p">)</span>
+        <span class="n">facnum</span><span class="p">[</span><span class="n">fac</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span>
+        <span class="n">power</span> <span class="o">+=</span> <span class="n">facpower</span><span class="p">[</span><span class="n">fac</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">fac</span> <span class="ow">in</span> <span class="n">startfacs</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">facnum</span><span class="p">[</span><span class="n">fac</span><span class="p">]:</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;prototypes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">facs</span><span class="p">[</span><span class="n">fac</span><span class="p">])</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;build_times&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;lifetimes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_build&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+
+<div class="viewcode-block" id="generate_deploy"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_deploy">[docs]</a><span class="k">def</span> <span class="nf">generate_deploy</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Determines the function used to build the deploy institution. </span>
+<span class="sd">   Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sim : Dictionary</span>
+<span class="sd">        Simulation specifications for the cyclus input file. </span>
+<span class="sd">    parameters: Dictionary</span>
+<span class="sd">        Parameters used to define the deploy institution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="s1">&#39;schedule&#39;</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">generate_deploy_sch</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;lin&#39;</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">generate_deploy_lin</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+
+<div class="viewcode-block" id="generate_deploy_lin"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_deploy_lin">[docs]</a><span class="k">def</span> <span class="nf">generate_deploy_lin</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This creates a deploy institution for randomized runs. </span>
+<span class="sd">    This deploy institutation is designed to test a given parameter</span>
+<span class="sd">    space for the possibility of transition between facilities.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sim : Dictionary</span>
+<span class="sd">        Simulation specifications for the cyclus input file. </span>
+<span class="sd">    parameters: Dictionary</span>
+<span class="sd">        Parameters used to define the deploy institution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">randtimes</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;control&#39;</span><span class="p">][</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">12</span>
+    <span class="n">months</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lin</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;lin&#39;</span><span class="p">]</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prototypes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:[]},</span> <span class="s1">&#39;build_times&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="p">[]},</span> <span class="s1">&#39;n_build&#39;</span><span class="p">:{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="p">[]},</span> <span class="s1">&#39;lifetimes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:[]}}</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">facs</span><span class="p">,</span> <span class="n">facstart</span><span class="p">,</span> <span class="n">facend</span><span class="p">,</span> <span class="n">types</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;facs&#39;</span><span class="p">],</span> <span class="n">lin</span><span class="p">[</span><span class="s1">&#39;facstart&#39;</span><span class="p">],</span> <span class="n">lin</span><span class="p">[</span><span class="s1">&#39;facend&#39;</span><span class="p">],</span> <span class="n">lin</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">gen_c</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;generalchance&#39;</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No generalchance parameter set, using default of 10%&quot;</span><span class="p">)</span>
+        <span class="n">gen_c</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">deploy_c</span> <span class="o">=</span> <span class="n">lin</span><span class="p">[</span><span class="s1">&#39;deploychoice&#39;</span><span class="p">]</span>    
+    <span class="n">config</span> <span class="o">=</span> <span class="n">trans_init_facs</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">randtimes</span><span class="p">:</span>
+        <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;control&#39;</span><span class="p">][</span><span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="n">months</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">facility</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">facility</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">facs</span><span class="p">:</span>           
+                <span class="n">i</span> <span class="o">=</span> <span class="n">facs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">facility</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">facstart</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">date</span> <span class="ow">or</span> <span class="n">facend</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">date</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">num</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">deploy_c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">value</span><span class="p">,</span> <span class="n">mid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">date</span><span class="o">-</span><span class="n">facstart</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">facend</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">facstart</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">types</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="s1">&#39;inc&#39;</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">mid</span>
+                <span class="k">elif</span> <span class="n">types</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span> 
+                    <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">mid</span>
+                <span class="k">elif</span> <span class="n">types</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="s1">&#39;unity&#39;</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;prototypes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">facility</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;build_times&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;lifetimes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">]))</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_build&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>    
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">gen_c</span><span class="p">:</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_build&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;prototypes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">facility</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;build_times&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;lifetimes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+
+<div class="viewcode-block" id="generate_deploy_sch"><a class="viewcode-back" href="../../api/special_archs.html#rickshaw.special_archs.generate_deploy_sch">[docs]</a><span class="k">def</span> <span class="nf">generate_deploy_sch</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This creates a deploy institution for randomized runs. </span>
+<span class="sd">    This deploy institutation is designed to test a given parameter</span>
+<span class="sd">    space for the possibility of transition between facilities.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sim : Dictionary</span>
+<span class="sd">        Simulation specifications for the cyclus input file. </span>
+<span class="sd">    parameters: Dictionary</span>
+<span class="sd">        Parameters used to define the deploy institution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prototypes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:[]},</span> <span class="s1">&#39;build_times&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="p">[]},</span> <span class="s1">&#39;n_build&#39;</span><span class="p">:{</span><span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="p">[]},</span> <span class="s1">&#39;lifetimes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;val&#39;</span><span class="p">:[]}}</span>
+    <span class="n">sched</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;schedule&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">fac</span><span class="p">,</span> <span class="n">dates</span> <span class="ow">in</span> <span class="n">sched</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">dates</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">seed</span> <span class="o">&gt;</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">config</span><span class="p">[</span><span class="s1">&#39;prototypes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fac</span><span class="p">)</span>
+                <span class="n">config</span><span class="p">[</span><span class="s1">&#39;build_times&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+                <span class="n">config</span><span class="p">[</span><span class="s1">&#39;lifetimes&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+                <span class="n">config</span><span class="p">[</span><span class="s1">&#39;n_build&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+
 </pre></div>
 
           </div>
@@ -231,7 +473,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

@@ -1,19 +1,16 @@
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>rickshaw.generate &#8212; rickshaw 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -38,7 +35,7 @@
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/_modules/rickshaw/generate.html"/>
 
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -75,6 +72,7 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="k">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randrange</span><span class="p">,</span> <span class="n">choice</span>
@@ -143,45 +141,23 @@
 <span class="sd">        List of connected niches that model the steps of the full nuclear</span>
 <span class="sd">        fuel cycle.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Starting Niches&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">niches</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">niches</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">niches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">max_niches</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Finishing Niches&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">niches</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sim_spec</span><span class="o">.</span><span class="n">niche_links</span><span class="p">[</span><span class="n">choice</span><span class="p">],</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">choice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Finishing Niches&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">niches</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Finishing Niches&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">random_niches</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">max_niches</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">choice</span><span class="p">,</span> <span class="n">niches</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="choose_control"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.choose_control">[docs]</a><span class="k">def</span> <span class="nf">choose_control</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;This program will choose the control scheme at random for a cyclus</span>
-<span class="sd">    input file in JSON</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        control : dict</span>
-<span class="sd">            Dictionary generated to be the control scheme in the JSON cyclus</span>
-<span class="sd">            input file</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">duration</span> <span class="o">=</span> <span class="n">randrange</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-    <span class="n">start_month</span> <span class="o">=</span> <span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-    <span class="n">start_year</span> <span class="o">=</span> <span class="n">randrange</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2050</span><span class="p">)</span>
-    <span class="n">dt</span> <span class="o">=</span> <span class="n">randrange</span><span class="p">(</span><span class="mi">2629846</span><span class="p">,</span> <span class="mi">31558152</span><span class="p">,</span> <span class="mi">2629846</span><span class="p">)</span>
-
-    <span class="n">control</span> <span class="o">=</span> <span class="p">{</span>
-
-                <span class="s1">&#39;duration&#39;</span> <span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
-                <span class="s1">&#39;startmonth&#39;</span> <span class="p">:</span> <span class="n">start_month</span><span class="p">,</span>
-                <span class="s1">&#39;startyear&#39;</span> <span class="p">:</span> <span class="n">start_year</span><span class="p">,</span>
-                <span class="s1">&#39;dt&#39;</span> <span class="p">:</span> <span class="n">dt</span><span class="p">,</span>
-
-                <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">control</span></div>
-
 <div class="viewcode-block" id="up_hierarchy"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.up_hierarchy">[docs]</a><span class="k">def</span> <span class="nf">up_hierarchy</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;start upheir&#39;</span><span class="p">)</span>
     <span class="c1"># If we have it, immediately return</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">commodities</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">commodities</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -196,17 +172,21 @@
         <span class="n">keyto</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="c1"># If our new key is identical to the original, we can&#39;t support it</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">keyfrom</span><span class="p">,</span> <span class="n">keyto</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end upheir&#39;</span><span class="p">)</span>    
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">keyfrom</span><span class="p">,</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
             <span class="n">commod</span> <span class="o">=</span> <span class="n">up_hierarchy</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="p">(</span><span class="n">keyfrom</span><span class="p">,</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
             <span class="k">if</span> <span class="n">commod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end upheir&#39;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">commod</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">keyto</span><span class="p">)</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
             <span class="n">commod</span> <span class="o">=</span> <span class="n">up_hierarchy</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">keyto</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">commod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end upheir&#39;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">commod</span>
         <span class="n">commod</span> <span class="o">=</span> <span class="n">up_hierarchy</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="p">(</span><span class="n">keyfrom</span><span class="p">,</span> <span class="n">keyto</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end upheir&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">commod</span></div>
 
 
@@ -229,8 +209,10 @@
 <span class="sd">    commod_name : str</span>
 <span class="sd">        A unique commodity name.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;commod&#39;</span><span class="p">)</span>
     <span class="n">commod</span> <span class="o">=</span> <span class="n">orig_commod</span> <span class="o">=</span> <span class="n">up_hierarchy</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="p">(</span><span class="n">keyfrom</span><span class="p">,</span> <span class="n">keyto</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">commod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;commod is none, end commod&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">commod_name</span> <span class="o">=</span> <span class="n">commod</span>
@@ -238,6 +220,7 @@
         <span class="n">commod_name</span> <span class="o">=</span> <span class="n">orig_commod</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">unique_commods</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">commod_name</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end commod&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">commod_name</span></div>
 
 
@@ -257,6 +240,7 @@
 <span class="sd">        List of in and out commodities to be added to the archetypes in the</span>
 <span class="sd">        input file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;start choose commodities&#39;</span><span class="p">)</span>
     <span class="n">commods</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">unique_commods</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">keyfrom</span><span class="p">,</span> <span class="n">keyto</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">niches</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">niches</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
@@ -264,6 +248,7 @@
         <span class="k">if</span> <span class="n">commod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">commods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">commod</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end choose commodities&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">commods</span></div>
 
 <div class="viewcode-block" id="choose_recipes"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.choose_recipes">[docs]</a><span class="k">def</span> <span class="nf">choose_recipes</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">commods</span><span class="p">):</span>
@@ -283,6 +268,7 @@
 <span class="sd">            List of the assigned recipes to be added to the recipe section of</span>
 <span class="sd">            the generated input file[]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;start choose recipes&#39;</span><span class="p">)</span>
     <span class="n">recipes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">commod</span> <span class="ow">in</span> <span class="n">commods</span><span class="p">:</span>
         <span class="n">recipe_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -307,6 +293,7 @@
         <span class="k">if</span> <span class="n">none_i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nucs</span><span class="p">[</span><span class="n">none_i</span><span class="p">][</span><span class="s1">&#39;comp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">total</span>
         <span class="n">recipes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recipe_dict</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end recipes&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">recipes</span></div>
 
 <div class="viewcode-block" id="generate_nuclide"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.generate_nuclide">[docs]</a><span class="k">def</span> <span class="nf">generate_nuclide</span><span class="p">(</span><span class="n">commod</span><span class="p">):</span>
@@ -329,6 +316,7 @@
 <span class="sd">    arches : list</span>
 <span class="sd">        List of assigned archetypes. Same list length as niches.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;start choose arch&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">customized</span><span class="p">:</span>
         <span class="n">arches</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sim_spec</span><span class="o">.</span><span class="n">archetypes</span><span class="p">[</span><span class="n">niches</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -343,6 +331,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sim_spec</span><span class="o">.</span><span class="n">archetypes</span><span class="p">[</span><span class="n">niches</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">|</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">default_sinks</span><span class="p">))</span>
         <span class="n">arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end choose arch&#39;</span><span class="p">)</span>    
     <span class="k">return</span> <span class="n">arches</span></div>
 
 <div class="viewcode-block" id="archetype_block"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.archetype_block">[docs]</a><span class="k">def</span> <span class="nf">archetype_block</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arches</span><span class="p">):</span>
@@ -359,6 +348,7 @@
 <span class="sd">        Dictionary containing each necessary element of the archetype</span>
 <span class="sd">        block in a Cyclus input file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;start arch block&#39;</span><span class="p">)</span>
     <span class="n">arches</span> <span class="o">=</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">arches</span> <span class="o">+</span> <span class="n">arches</span>
     <span class="n">unique_arches</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arches</span><span class="p">))</span>
     <span class="k">if</span> <span class="s1">&#39;:agents:Sink&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_arches</span><span class="p">:</span>
@@ -367,6 +357,8 @@
         <span class="n">unique_arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:agents:Source&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;:agents:NullInst&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_arches</span><span class="p">:</span>
         <span class="n">unique_arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:agents:NullInst&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;:cycamore:DeployInst&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_arches</span><span class="p">:</span>
+        <span class="n">unique_arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:cycamore:DeployInst&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;:agents:NullRegion&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_arches</span><span class="p">:</span>
         <span class="n">unique_arches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;:agents:NullRegion&#39;</span><span class="p">)</span>
     <span class="n">block</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;spec&quot;</span> <span class="p">:</span> <span class="p">[]}</span>
@@ -385,6 +377,7 @@
         <span class="k">if</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
         <span class="n">block</span><span class="p">[</span><span class="s2">&quot;spec&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end arch block&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">block</span></div>
 
 <div class="viewcode-block" id="generate_archetype"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.generate_archetype">[docs]</a><span class="k">def</span> <span class="nf">generate_archetype</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arche</span><span class="p">,</span> <span class="n">in_commod</span><span class="p">,</span> <span class="n">out_commod</span><span class="p">,</span> <span class="n">in_recipe</span><span class="p">,</span> <span class="n">out_recipe</span><span class="p">):</span>
@@ -409,6 +402,7 @@
 <span class="sd">        config : dict</span>
 <span class="sd">            The JSON formatted archetype dictionary to be put in the input file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;start generate arch&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">arche</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">annotations</span><span class="p">:</span>
         <span class="n">anno</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="n">CYCLUS_EXECUTABLE</span><span class="p">[:],</span> <span class="s2">&quot;--agent-annotations&quot;</span><span class="p">,</span> <span class="n">arche</span><span class="p">],</span>
                                        <span class="n">env</span><span class="o">=</span><span class="n">CYCLUS_ENV</span><span class="p">)</span>
@@ -473,27 +467,8 @@
     <span class="k">if</span> <span class="n">arche</span> <span class="o">==</span> <span class="s1">&#39;:agents:Source&#39;</span><span class="p">:</span>
         <span class="n">alias</span> <span class="o">=</span> <span class="s1">&#39;agents_source&#39;</span>
     <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">alias</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">alias</span><span class="p">:</span> <span class="n">vals</span><span class="p">}})</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;end generate arch&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">config</span></div>
-
-
-<div class="viewcode-block" id="generate_region_inst"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.generate_region_inst">[docs]</a><span class="k">def</span> <span class="nf">generate_region_inst</span><span class="p">(</span><span class="n">sim</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Creates a null region and inst for the randomized runs.</span>
-<span class="sd">    This operated in-place.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">region</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SingleRegion&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;NullRegion&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
-        <span class="s2">&quot;institution&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SingleInstitution&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;NullInst&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
-            <span class="s2">&quot;initialfacilitylist&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="p">[]},</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="n">entries</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">][</span><span class="s2">&quot;institution&quot;</span><span class="p">][</span><span class="s2">&quot;initialfacilitylist&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">facility</span> <span class="ow">in</span> <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]:</span>
-        <span class="n">entry</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;prototype&quot;</span><span class="p">:</span> <span class="n">facility</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-        <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="generate"><a class="viewcode-back" href="../../api/generate.html#rickshaw.generate.generate">[docs]</a><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">max_num_niches</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sim_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Creates a random Cyclus simulation input file dict.</span>
@@ -510,10 +485,10 @@
 <span class="sd">        as a Cyclus input file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># intial structure</span>
-    <span class="c1">#pprint(sim_spec)</span>
-    <span class="n">inp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;simulation&quot;</span><span class="p">:</span> <span class="p">{}}</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;generate start&#39;</span><span class="p">)</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;simulation&quot;</span><span class="p">:</span> <span class="p">{}}</span>  
     <span class="n">sim</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;simulation&quot;</span><span class="p">]</span>
-    <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;control&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choose_control</span><span class="p">()</span>
+    <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;control&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">control</span>
     <span class="c1"># choose niches and archtypes</span>
     <span class="n">niches</span> <span class="o">=</span> <span class="n">random_niches</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">max_niches</span><span class="o">=</span><span class="n">max_num_niches</span><span class="p">)</span>
     <span class="n">arches</span> <span class="o">=</span> <span class="n">choose_archetypes</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">niches</span><span class="p">)</span>
@@ -526,9 +501,7 @@
     <span class="n">protos</span><span class="p">[</span><span class="n">arches</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">generate_archetype</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arches</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">commods</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">recipes</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">arche</span><span class="p">,</span> <span class="n">in_commod</span><span class="p">,</span> <span class="n">out_commod</span><span class="p">,</span> <span class="n">in_recipe</span><span class="p">,</span> <span class="n">out_recipe</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">arches</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
                                             <span class="n">commods</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">commods</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
-                                            <span class="n">recipes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">recipes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">arche</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">sim_spec</span><span class="o">.</span><span class="n">arches</span><span class="p">)</span>        
+                                            <span class="n">recipes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">recipes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>       
         <span class="k">if</span> <span class="n">arche</span> <span class="ow">in</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">arches</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">temp_arch</span> <span class="o">=</span> <span class="n">generate_archetype</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arche</span><span class="p">,</span> <span class="n">in_commod</span><span class="p">,</span> <span class="n">out_commod</span><span class="p">,</span> <span class="n">in_recipe</span><span class="p">,</span> <span class="n">out_recipe</span><span class="p">)</span>
@@ -542,7 +515,8 @@
     <span class="n">protos</span><span class="p">[</span><span class="n">arches</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">generate_archetype</span><span class="p">(</span><span class="n">sim_spec</span><span class="p">,</span> <span class="n">arches</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">commods</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">protos</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
     <span class="n">sim</span><span class="p">[</span><span class="s2">&quot;facility&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sim_spec</span><span class="o">.</span><span class="n">facilities</span>
-    <span class="n">generate_region_inst</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+    <span class="n">sa</span><span class="o">.</span><span class="n">generate_region_inst</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">sim_spec</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;generate end&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">inp</span></div>
 
 </pre></div>
@@ -606,7 +580,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

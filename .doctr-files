@@ -1,9 +1,9 @@
 ./_modules/collections/abc.html
 ./_modules/index.html
+./_modules/rickshaw/dbtools.html
 ./_modules/rickshaw/docker_scheduler.html
 ./_modules/rickshaw/generate.html
 ./_modules/rickshaw/lazyasd.html
-./_modules/rickshaw/main.html
 ./_modules/rickshaw/scheduler.html
 ./_modules/rickshaw/server.html
 ./_modules/rickshaw/special_archs.html

@@ -1,20 +1,17 @@
 
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Index &#8212; rickshaw 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -39,7 +36,7 @@
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/genindex.html"/>
 
   </head>
-  <body role="document">
+  <body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -84,6 +81,7 @@
  | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
@@ -110,6 +108,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lazyasd.html#rickshaw.lazyasd.BackgroundModuleProxy">BackgroundModuleProxy (class in rickshaw.lazyasd)</a>
 </li>
+      <li><a href="api/dbtools.html#rickshaw.dbtools.build_parser">build_parser() (in module rickshaw.dbtools)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -121,8 +121,6 @@
       <li><a href="api/generate.html#rickshaw.generate.choose_commodities">choose_commodities() (in module rickshaw.generate)</a>
 </li>
       <li><a href="api/generate.html#rickshaw.generate.choose_commodity">choose_commodity() (in module rickshaw.generate)</a>
-</li>
-      <li><a href="api/generate.html#rickshaw.generate.choose_control">choose_control() (in module rickshaw.generate)</a>
 </li>
       <li><a href="api/generate.html#rickshaw.generate.choose_recipes">choose_recipes() (in module rickshaw.generate)</a>
 </li>
@@ -152,6 +150,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/dbtools.html#rickshaw.dbtools.db_open">db_open() (in module rickshaw.dbtools)</a>
+</li>
       <li><a href="api/docker_scheduler.html#rickshaw.docker_scheduler.DockerScheduler">DockerScheduler (class in rickshaw.docker_scheduler)</a>
 </li>
   </ul></td>
@@ -192,11 +192,19 @@
 </li>
       <li><a href="api/generate.html#rickshaw.generate.generate_archetype">generate_archetype() (in module rickshaw.generate)</a>
 </li>
-      <li><a href="api/generate.html#rickshaw.generate.generate_nuclide">generate_nuclide() (in module rickshaw.generate)</a>
+      <li><a href="api/special_archs.html#rickshaw.special_archs.generate_deploy">generate_deploy() (in module rickshaw.special_archs)</a>
+</li>
+      <li><a href="api/special_archs.html#rickshaw.special_archs.generate_deploy_inst">generate_deploy_inst() (in module rickshaw.special_archs)</a>
+</li>
+      <li><a href="api/special_archs.html#rickshaw.special_archs.generate_deploy_lin">generate_deploy_lin() (in module rickshaw.special_archs)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/generate.html#rickshaw.generate.generate_region_inst">generate_region_inst() (in module rickshaw.generate)</a>
+      <li><a href="api/special_archs.html#rickshaw.special_archs.generate_deploy_sch">generate_deploy_sch() (in module rickshaw.special_archs)</a>
+</li>
+      <li><a href="api/generate.html#rickshaw.generate.generate_nuclide">generate_nuclide() (in module rickshaw.generate)</a>
+</li>
+      <li><a href="api/special_archs.html#rickshaw.special_archs.generate_region_inst">generate_region_inst() (in module rickshaw.special_archs)</a>
 </li>
       <li><a href="api/special_archs.html#rickshaw.special_archs.generate_throwsink">generate_throwsink() (in module rickshaw.special_archs)</a>
 </li>
@@ -270,7 +278,7 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/main.html#rickshaw.main.main">main() (in module rickshaw.main)</a>
+      <li><a href="api/dbtools.html#rickshaw.dbtools.main">main() (in module rickshaw.dbtools)</a>
 
       <ul>
         <li><a href="api/server.html#rickshaw.server.main">(in module rickshaw.server)</a>
@@ -279,6 +287,10 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/server.html#rickshaw.server.make_parser">make_parser() (in module rickshaw.server)</a>
+</li>
+      <li><a href="api/dbtools.html#rickshaw.dbtools.merge">merge() (in module rickshaw.dbtools)</a>
+</li>
+      <li><a href="api/dbtools.html#rickshaw.dbtools.merge_action">merge_action() (in module rickshaw.dbtools)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -332,15 +344,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generate.html#rickshaw.generate.random_niches">random_niches() (in module rickshaw.generate)</a>
 </li>
+      <li><a href="api/dbtools.html#module-rickshaw.dbtools">rickshaw.dbtools (module)</a>
+</li>
       <li><a href="api/docker_scheduler.html#module-rickshaw.docker_scheduler">rickshaw.docker_scheduler (module)</a>
 </li>
       <li><a href="api/generate.html#module-rickshaw.generate">rickshaw.generate (module)</a>
 </li>
-      <li><a href="api/lazyasd.html#module-rickshaw.lazyasd">rickshaw.lazyasd (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/main.html#module-rickshaw.main">rickshaw.main (module)</a>
+      <li><a href="api/lazyasd.html#module-rickshaw.lazyasd">rickshaw.lazyasd (module)</a>
 </li>
       <li><a href="api/scheduler.html#module-rickshaw.scheduler">rickshaw.scheduler (module)</a>
 </li>
@@ -382,11 +394,11 @@
 </li>
       <li><a href="api/lazyasd.html#rickshaw.lazyasd.BackgroundModuleLoader.start">start() (rickshaw.lazyasd.BackgroundModuleLoader method)</a>
 </li>
-      <li><a href="api/server.html#rickshaw.server.start_cyclus_server">start_cyclus_server() (in module rickshaw.server)</a>
+      <li><a href="api/server.html#rickshaw.server.start_annotations_server">start_annotations_server() (in module rickshaw.server)</a>
+</li>
+      <li><a href="api/docker_scheduler.html#rickshaw.docker_scheduler.DockerScheduler.start_cyclus_server">start_cyclus_server() (rickshaw.docker_scheduler.DockerScheduler method)</a>
 
       <ul>
-        <li><a href="api/docker_scheduler.html#rickshaw.docker_scheduler.DockerScheduler.start_cyclus_server">(rickshaw.docker_scheduler.DockerScheduler method)</a>
-</li>
         <li><a href="api/scheduler.html#rickshaw.scheduler.Scheduler.start_cyclus_server">(rickshaw.scheduler.Scheduler method)</a>
 </li>
       </ul></li>
@@ -396,6 +408,14 @@
         <li><a href="api/scheduler.html#rickshaw.scheduler.Scheduler.stop_cyclus_server">(rickshaw.scheduler.Scheduler method)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/special_archs.html#rickshaw.special_archs.trans_init_facs">trans_init_facs() (in module rickshaw.special_archs)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -500,7 +520,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>
