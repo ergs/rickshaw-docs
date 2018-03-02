@@ -6,21 +6,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>rickshaw.lazyasd &#8212; rickshaw 1.5.3 documentation</title>
     <link rel="stylesheet" href="../../_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '1.5.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -34,8 +26,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/_modules/rickshaw/lazyasd.html"/>
 
-  </head>
-  <body>
+  </head><body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -182,13 +173,13 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lazy_obj</span><span class="p">())</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lazy_obj</span><span class="p">())</span></div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lazy_obj</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="lazyobject"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.lazyobject">[docs]</a><span class="k">def</span> <span class="nf">lazyobject</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decorator for constructing lazy objects from a function.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">LazyObject</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+    <span class="sd">&quot;&quot;&quot;Decorator for constructing lazy objects from a function.&quot;&quot;&quot;</span></div>
+    <span class="k">return</span> <span class="n">LazyObject</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="LazyDict"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.LazyDict">[docs]</a><span class="k">class</span> <span class="nc">LazyDict</span><span class="p">(</span><span class="n">cabc</span><span class="o">.</span><span class="n">MutableMapping</span><span class="p">):</span>
@@ -257,13 +248,13 @@
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">yield from</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loaders</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
 
-    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_d</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loaders</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_d</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loaders</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="lazydict"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.lazydict">[docs]</a><span class="k">def</span> <span class="nf">lazydict</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decorator for constructing lazy dicts from a function.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">LazyDict</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+    <span class="sd">&quot;&quot;&quot;Decorator for constructing lazy dicts from a function.&quot;&quot;&quot;</span></div>
+    <span class="k">return</span> <span class="n">LazyDict</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="LazyBool"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.LazyBool">[docs]</a><span class="k">class</span> <span class="nc">LazyBool</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -299,13 +290,13 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span>
-        <span class="k">return</span> <span class="n">res</span></div>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result</span></div>
+        <span class="k">return</span> <span class="n">res</span>
 
 
 <div class="viewcode-block" id="lazybool"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.lazybool">[docs]</a><span class="k">def</span> <span class="nf">lazybool</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decorator for constructing lazy booleans from a function.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">LazyBool</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+    <span class="sd">&quot;&quot;&quot;Decorator for constructing lazy booleans from a function.&quot;&quot;&quot;</span></div>
+    <span class="k">return</span> <span class="n">LazyBool</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <span class="c1">#</span>
@@ -341,8 +332,8 @@
         <span class="n">stall</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stall</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>
             <span class="n">stall</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="BackgroundModuleLoader"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.BackgroundModuleLoader">[docs]</a><span class="k">class</span> <span class="nc">BackgroundModuleLoader</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
@@ -377,8 +368,8 @@
         <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">targname</span><span class="p">,</span> <span class="n">varname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">replacements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">targname</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
-                <span class="n">targmod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">targname</span><span class="p">]</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="n">targmod</span><span class="p">,</span> <span class="n">varname</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span></div></div>
+                <span class="n">targmod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">targname</span><span class="p">]</span></div></div>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">targmod</span><span class="p">,</span> <span class="n">varname</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="load_module_in_background"><a class="viewcode-back" href="../../api/lazyasd.html#rickshaw.lazyasd.load_module_in_background">[docs]</a><span class="k">def</span> <span class="nf">load_module_in_background</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -418,8 +409,8 @@
         <span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="n">package</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mod</span>
     <span class="n">proxy</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">modname</span><span class="p">]</span> <span class="o">=</span> <span class="n">BackgroundModuleProxy</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
-    <span class="n">BackgroundModuleLoader</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">replacements</span> <span class="ow">or</span> <span class="p">{})</span>
-    <span class="k">return</span> <span class="n">proxy</span></div>
+    <span class="n">BackgroundModuleLoader</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">replacements</span> <span class="ow">or</span> <span class="p">{})</span></div>
+    <span class="k">return</span> <span class="n">proxy</span>
 
 </pre></div>
 
@@ -433,12 +424,14 @@
         </a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -482,7 +475,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>

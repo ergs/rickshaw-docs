@@ -6,21 +6,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Lazy and Self-destructive Tools (rickshaw.lazyasd) &#8212; rickshaw 1.5.3 documentation</title>
     <link rel="stylesheet" href="../_static/numpy_friendly.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.5.3',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -36,8 +28,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="http://www.ergs.sc.edu/rickshaw-docs/api/lazyasd.html"/>
 
-  </head>
-  <body>
+  </head><body>
     <div class="relbar-top">
         
     <div class="related" role="navigation" aria-label="related navigation">
@@ -69,7 +60,7 @@
           <div class="body" role="main">
             
   <div class="section" id="module-rickshaw.lazyasd">
-<span id="lazy-and-self-destructive-tools-rickshaw-lazyasd"></span><span id="rickshaw-lazyasd"></span><h1>Lazy and Self-destructive Tools (<code class="docutils literal"><span class="pre">rickshaw.lazyasd</span></code>)<a class="headerlink" href="#module-rickshaw.lazyasd" title="Permalink to this headline">¶</a></h1>
+<span id="lazy-and-self-destructive-tools-rickshaw-lazyasd"></span><span id="rickshaw-lazyasd"></span><h1>Lazy and Self-destructive Tools (<code class="docutils literal notranslate"><span class="pre">rickshaw.lazyasd</span></code>)<a class="headerlink" href="#module-rickshaw.lazyasd" title="Permalink to this headline">¶</a></h1>
 <p>Lazy and self destructive containers for speeding up module import.</p>
 <dl class="class">
 <dt id="rickshaw.lazyasd.BackgroundModuleLoader">
@@ -127,7 +118,12 @@ exception.</p>
 <dl class="method">
 <dt id="rickshaw.lazyasd.BackgroundModuleLoader.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rickshaw/lazyasd.html#BackgroundModuleLoader.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rickshaw.lazyasd.BackgroundModuleLoader.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="rickshaw.lazyasd.BackgroundModuleLoader.setDaemon">
@@ -196,7 +192,7 @@ in the provided context (typically the globals of the call site) with
 the given name.</p>
 <p>For example, you can prevent the complex boolean until it is actually
 used:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ALIVE</span> <span class="o">=</span> <span class="n">LazyDict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="ow">not</span> <span class="n">DEAD</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;ALIVE&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ALIVE</span> <span class="o">=</span> <span class="n">LazyDict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="ow">not</span> <span class="n">DEAD</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;ALIVE&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -233,7 +229,7 @@ in the provided context (typically the globals of the call site) with
 the given name.</p>
 <p>For example, you can prevent the compilation of a bunch of regular
 expressions until they are actually used:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RES</span> <span class="o">=</span> <span class="n">LazyDict</span><span class="p">({</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RES</span> <span class="o">=</span> <span class="n">LazyDict</span><span class="p">({</span>
         <span class="s1">&#39;dot&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">),</span>
         <span class="s1">&#39;all&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.*&#39;</span><span class="p">),</span>
         <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">),</span>
@@ -324,7 +320,7 @@ provided context (typically the globals of the call site) with the
 given name.</p>
 <p>For example, you can prevent the compilation of a regular expreession
 until it is actually used:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DOT</span> <span class="o">=</span> <span class="n">LazyObject</span><span class="p">((</span><span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)),</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;DOT&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DOT</span> <span class="o">=</span> <span class="n">LazyObject</span><span class="p">((</span><span class="k">lambda</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)),</span> <span class="nb">globals</span><span class="p">(),</span> <span class="s1">&#39;DOT&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -429,7 +425,7 @@ module is fully loaded.</p>
   <div class="sphinxprev">
     <h4>Previous page</h4>
     <p class="topless"><a href="dbtools.html"
-                          title="Previous page">&larr; Database Tools (<code class="docutils literal"><span class="pre">rickshaw.dbtools</span></code>)</a></p>
+                          title="Previous page">&larr; Database Tools (<code class="docutils literal notranslate"><span class="pre">rickshaw.dbtools</span></code>)</a></p>
   </div>
   <div class="sphinxnext">
     <h4>Next page</h4>
@@ -445,12 +441,14 @@ module is fully loaded.</p>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -500,7 +498,7 @@ module is fully loaded.</p>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2017, ERGS (Anthony Scopatz et al.).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
     <!-- cloud_sptheme 1.4 -->
   </body>
